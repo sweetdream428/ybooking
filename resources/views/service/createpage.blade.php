@@ -29,7 +29,7 @@
                     <div class="card">
                         <form class="create-data-submit">
                             <div class="row mt-2 col-12">
-                                <div class="col-md-6 col-12">
+                                <div class="col-md-4 col-12">
                                     <div class="form-group">
                                         <label class="form-label" for="title">Title</label>
                                         <input type="text" class="form-control dt-full-name" id="title"
@@ -37,7 +37,7 @@
                                             aria-describedby="title" required/>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-12">
+                                <div class="col-md-4 col-12">
                                     <div class="form-group">
                                         <label class="form-label" for="category">Category</label>
                                         <select class="form-control" id="category" name="category" required>
@@ -47,9 +47,7 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row col-12">
-                                <div class="col-md-6 col-12">
+                                <div class="col-md-4 col-12">
                                     <div class="form-group">
                                         <label class="form-label" for="duration_name">Duration</label>
                                         <input type="text" name="duration_name" class="duration_name_value" hidden>
@@ -64,220 +62,36 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-12">
+                            </div>
+                            <div class="row col-12">
+                                <div class="col-md-4 col-12">
                                     <div class="form-group">
                                         <label class="form-label" for="price">Price</label>
                                         <input type="number" step="0.01" class="form-control dt-full-name" id="price" placeholder="10.00" name="price" aria-label="price" aria-describedby="price" required/>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row col-12 form-sunday">
                                 <div class="col-md-4 col-12">
-                                    <label class="form-label" for="sunday">Sunday</label>
-                                    <div class="custom-control custom-control-primary custom-checkbox mt-1">
-                                        <input type="checkbox" class="custom-control-input" id="sun" name="sun" checked />
-                                        <label class="custom-control-label" for="sun">Sun</label>
+                                    <div class="form-group">
+                                        <label class="form-label" for="location">Location</label>
+                                        <select class="form-control" id="location" name="location" required>
+                                            @foreach ($locations as $location)
+                                                <option value="{{$location->name}}">{{$location->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-12">
                                     <div class="form-group">
-                                        <label class="form-label" for="start_time">Start Time</label>
-                                        <input type="text" class="form-control flatpickr-time text-left sun_start_time" placeholder="HH:MM" style="height: 34px;" required/>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <div class="form-group">
-                                        <label class="form-label" for="end_time">End Time</label>
-                                        <input type="text" class="form-control flatpickr-time text-left sun_end_time" placeholder="HH:MM" style="height: 34px;" required/>
-                                    </div>
-                                </div>
-                            </div>
-                           
-                            <div class="row col-12">
-                                <button type="button" class="btn btn-primary btn-sunday ml-3">
-                                    <span class="align-middle">Add</span>
-                                </button>
-                            </div>
-
-                            <div class="row col-12 mt-2 form-monday">
-                                <div class="col-md-4 col-12">
-                                    <label class="form-label" for="monday">Monday</label>
-                                    <div class="custom-control custom-control-primary custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="mon" name="mon" checked />
-                                        <label class="custom-control-label" for="mon">Mon</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <div class="form-group">
-                                        <label class="form-label" for="mon_start_time">Start Time</label>
-                                        <input type="text" class="form-control flatpickr-time text-left mon_start_time"  placeholder="HH:MM" style="height: 34px;"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <div class="form-group">
-                                        <label class="form-label" for="mon_end_time">End Time</label>
-                                        <input type="text" class="form-control mon_end_time flatpickr-time text-left"  placeholder="HH:MM" style="height: 34px;"/>
+                                        <label class="form-label" for="employee">Employees</label>
+                                        <select class="form-control" id="employee" name="employee" required>
+                                            @foreach ($employees as $employee)
+                                                <option value="{{$employee->name}}">{{$employee->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row col-12">
-                                <button type="button" class="btn btn-primary btn-monday ml-3">
-                                    <span class="align-middle">Add</span>
-                                </button>
-                            </div>
-
-                            <div class="row col-12 mt-2 form-tuesday">
-                                <div class="col-md-4 col-12">
-                                    <label class="form-label" for="Tuesday">Tuesday</label>
-                                    <div class="custom-control custom-control-primary custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="tue" name="tue" checked />
-                                        <label class="custom-control-label" for="tue">Tue</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <div class="form-group">
-                                        <label class="form-label" for="tue_start_time">Start Time</label>
-                                        <input type="text" class="form-control flatpickr-time text-left tue_start_time" placeholder="HH:MM" style="height: 34px;"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <div class="form-group">
-                                        <label class="form-label" for="tue_end_time">End Time</label>
-                                        <input type="text" class="form-control flatpickr-time text-left tue_end_time" placeholder="HH:MM" style="height: 34px;"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row col-12">
-                                <button type="button" class="btn btn-primary btn-tuesday ml-3">
-                                    <span class="align-middle">Add</span>
-                                </button>
-                            </div>
-
-                            <div class="row col-12 mt-2 form-wednesday">
-                                <div class="col-md-4 col-12">
-                                    <label class="form-label" for="start_time">Wednesday</label>
-                                    <div class="custom-control custom-control-primary custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="wed" name="wed" checked />
-                                        <label class="custom-control-label" for="wed">Wed</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <div class="form-group">
-                                        <label class="form-label" for="wed_start_time">Start Time</label>
-                                        <input type="text" class="form-control flatpickr-time text-left wed_start_time" placeholder="HH:MM" style="height: 34px;"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <div class="form-group">
-                                        <label class="form-label" for="wed_end_time">End Time</label>
-                                        <input type="text" class="form-control flatpickr-time text-left wed_end_time" placeholder="HH:MM" style="height: 34px;"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row col-12">
-                                <button type="button" class="btn btn-primary btn-wednesday ml-3">
-                                    <span class="align-middle">Add</span>
-                                </button>
-                            </div>
-
-                            <div class="row col-12 mt-2 form-thursday">
-                                <div class="col-md-4 col-12">
-                                    <label class="form-label" for="">Thursday</label>
-                                    <div class="custom-control custom-control-primary custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="thu" name="thu" checked />
-                                        <label class="custom-control-label" for="thu">Thu</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <div class="form-group">
-                                        <label class="form-label" for="thu_start_time">Start Time</label>
-                                        <input type="text" class="form-control flatpickr-time text-left thu_start_time" placeholder="HH:MM" style="height: 34px;"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <div class="form-group">
-                                        <label class="form-label" for="thu_end_time">End Time</label>
-                                        <input type="text" class="form-control flatpickr-time text-left thu_end_time" placeholder="HH:MM" style="height: 34px;"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row col-12">
-                                <button type="button" class="btn btn-primary btn-thursday ml-3">
-                                    <span class="align-middle">Add</span>
-                                </button>
-                            </div>
-
-                            <div class="row col-12 mt-2 form-friday">
-                                <div class="col-md-4 col-12">
-                                    <label class="form-label" for="">Friday</label>
-                                    <div class="custom-control custom-control-primary custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="fri" name="fri" checked />
-                                        <label class="custom-control-label" for="fri">Fri</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <div class="form-group">
-                                        <label class="form-label" for="fri_start_time">Start Time</label>
-                                        <input type="text" class="form-control flatpickr-time text-left fri_start_time"  placeholder="HH:MM" style="height: 34px;"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <div class="form-group">
-                                        <label class="form-label" for="fri_end_time">End Time</label>
-                                        <input type="text" class="form-control flatpickr-time text-left fri_end_time" placeholder="HH:MM" style="height: 34px;"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row col-12">
-                                <button type="button" class="btn btn-primary btn-friday ml-3">
-                                    <span class="align-middle">Add</span>
-                                </button>
-                            </div>
-
-                            <div class="row col-12 mt-2 form-saturday">
-                                <div class="col-md-4 col-12">
-                                    <label class="form-label" for="Saturday">Saturday</label>
-                                    <div class="custom-control custom-control-primary custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="sat" name="sat" checked />
-                                        <label class="custom-control-label" for="sat">Sat</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <div class="form-group">
-                                        <label class="form-label" for="sat_start_time">Start Time</label>
-                                        <input type="text" class="form-control flatpickr-time text-left sat_start_time"  placeholder="HH:MM" style="height: 34px;" required/>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <div class="form-group">
-                                        <label class="form-label" for="sat_end_time">End Time</label>
-                                        <input type="text" class="form-control flatpickr-time text-left sat_end_time" placeholder="HH:MM" style="height: 34px;" required/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row col-12">
-                                <button type="button" class="btn btn-primary btn-saturday ml-3">
-                                    <span class="align-middle">Add</span>
-                                </button>
-                            </div>
-                            <div class="row col-12 mt-4">
-                                <div class="col-md-6 col-12">
-                                    <div class="form-group">
-                                        <label class="form-label" for="allow">Allow</label>
-                                        <input type="number" class="form-control" id="allow"
-                                            placeholder="1" name="allow" aria-label="allow"
-                                            aria-describedby="allow" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                </div>
-                                
-                            </div>
-                            <div class="col-12 d-flex justify-content-center">
-                                <button type="submit" class="btn btn-primary">
-                                    submit
-                                </button>
-                            </div>
+                            
                             {{-- create-data-submit --}}
                         </form>
                     </div>

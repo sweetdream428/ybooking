@@ -126,7 +126,7 @@ $(function() {
                     processData: false,
                     success: function(data) {
                         if(data['success']){
-                            window.location.reload();
+                            
                         }
                         else{
                             console.log(data);

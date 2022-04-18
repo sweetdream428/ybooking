@@ -343,6 +343,26 @@
             duration = $('.duration_value option:selected').text();
             duration_name.val(duration);
         });
+
+        $(document).on('click', '.add_new_service', function(){
+            var url = '{{route('datatrans.service.create')}}';
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'post',
+                url: url,
+                success: function(data) {
+                    if(data['success']){
+                        console.log('success', data['success']);
+                        window.location.href = 'datatrans-service-list/' + data['success'];
+                    }
+                    else{
+                        console.log('error');
+                    }
+                }
+            })
+        });
         
         $(document).on("click", ".update_service", function()  {
             var id = $(this).data('id');

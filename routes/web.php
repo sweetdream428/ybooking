@@ -50,10 +50,16 @@ Route::middleware('web')->group(function () {
         Route::post('datatrans-category-update/{id}', [DatatransCategoryController::class, 'update'])->name('datatrans.category.update');
         Route::get('datatrans-category-delete/{id}', [DatatransCategoryController::class, 'delete'])->name('datatrans.category.delete');
 
-        Route::get('datatrans-service-list', [DatatransServiceController::class, 'index'])->name('datatrans.service.index');		
+        Route::get('datatrans-service-list', [DatatransServiceController::class, 'index'])->name('datatrans.service.index');	
         Route::post('datatrans-service-list', [DatatransServiceController::class, 'create'])->name('datatrans.service.create');
         Route::post('datatrans-service-update/{id}', [DatatransServiceController::class, 'update'])->name('datatrans.service.update');
         Route::get('datatrans-service-delete/{id}', [DatatransServiceController::class, 'delete'])->name('datatrans.service.delete');
+
+        Route::get('datatrans-service-list/{id}', [DatatransServiceController::class, 'createpage'])->name('datatrans.service.createpage');
+
+
+
+
 
         Route::get('datatrans-order', [DatatransOrderController::class, 'index'])->name('datatrans.order.index');
         Route::post('datatrans-order', [DatatransOrderController::class, 'create'])->name('datatrans.order.create');

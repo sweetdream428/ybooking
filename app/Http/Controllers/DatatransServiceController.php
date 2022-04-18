@@ -67,6 +67,14 @@ class DatatransServiceController extends Controller
         }  
     }
 
+    public function createpage($id) {
+        $services = DB::table('datatrans_services')->where('id', $id)->get();
+        $categories = DB::table('datatrans_categories')->where('own_id', Auth::user()->id)->get();
+        $locations = DB::table('users')->where('is_superuser', '3')->where('own_id', Auth::user()->id)->get();
+        $employees = DB::table('users')->where('is_superuser', '4')->where('own_id', Auth::user()->id)->get();
+        return view('service/createpage')->with('services', $services)->with('categories', $categories)->with('locations', $locations)->with('employees', $employees);
+    }
+
     public function update($id){
         
         try{
