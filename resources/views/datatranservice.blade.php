@@ -368,8 +368,8 @@
             var id = $(this).data('id');
             
             // window.location.href = 'datatrans-service-update/' + id;
-            
-            var url = 'datatrans-service-update/' + ($(this).data('id'));
+
+            var url = 'datatrans-service-list/' + ($(this).data('id'));
             $("#utitle").val($(this).data('title'));
             $("#uprice").val($(this).data('price'));
             $(".uduration_value").val($(this).data('duration'));
@@ -381,78 +381,7 @@
                 uduration_name.val(uduration);
             });
 
-            $("#uallow").val($(this).data('allow'));
-			$("#ucategory").val($(this).data('category'));
-            $("#ulocation").val($(this).data('location'));
-            $("#uemployee").val($(this).data('employee'));
-
-            if($(this).data('sun') == 1){
-                $("#usun").attr({checked:true});
-            }
-            if($(this).data('sun') != 1){
-                $("#usun").attr({checked:false});
-            }
-            if($(this).data('mon') == 1){
-                $("#umon").attr({checked:true});
-            }
-            if($(this).data('mon') != 1){
-                $("#umon").attr({checked:false});
-            }
-            if($(this).data('tue') == 1){
-                $("#utue").attr({checked:true});
-            }
-            if($(this).data('tue') != 1){
-                $("#utue").attr({checked:false});
-            }
-            if($(this).data('wed') == 1){
-                $("#uwed").attr({checked:true});
-            }
-            if($(this).data('wed') != 1){
-                $("#uwed").attr({checked:false});
-            }
-            if($(this).data('thu') == 1){
-                $("#uthu").attr({checked:true});
-            }
-            if($(this).data('thu') != 1){
-                $("#uthu").attr({checked:false});
-            }
-            if($(this).data('fri') == 1){
-                $("#ufri").attr({checked:true});
-            }
-            if($(this).data('fri') != 1){
-                $("#ufri").attr({checked:false});
-            }
-            if($(this).data('sat') == 1){
-                $("#usat").attr({checked:true});
-            }
-            if($(this).data('sat') != 1){
-                $("#usat").attr({checked:false});
-            }
-            $(".update_user_modal").modal('show');
-
-            $('.update-new-user').on("submit", function(e) {
-                var formData = new FormData(this);
-                e.preventDefault();
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type: 'post',
-                    url: url,
-                    cache:false,
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function(data) {
-                        if(data['success']){
-                            window.location.reload();
-                        }
-                        else{
-                            console.log('error');
-                        }
-                    }
-                })
-            });
+            window.location.href = url;
         });
 
         $(document).on("click", ".delete_service", function(e) {

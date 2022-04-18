@@ -72,7 +72,12 @@ class DatatransServiceController extends Controller
         $categories = DB::table('datatrans_categories')->where('own_id', Auth::user()->id)->get();
         $locations = DB::table('users')->where('is_superuser', '3')->where('own_id', Auth::user()->id)->get();
         $employees = DB::table('users')->where('is_superuser', '4')->where('own_id', Auth::user()->id)->get();
-        return view('service/createpage')->with('services', $services)->with('categories', $categories)->with('locations', $locations)->with('employees', $employees);
+        $createId = $id;
+        return view('service/createpage')->with('services', $services)->with('categories', $categories)->with('locations', $locations)->with('employees', $employees)->with('createId', $createId);
+    }
+
+    public function weekcrate(Request $request){
+
     }
 
     public function update($id){

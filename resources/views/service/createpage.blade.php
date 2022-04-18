@@ -398,26 +398,66 @@
     <script>
 
         $(function(){
+            var mon = 0;
             $('.add-monday').on('click', function(e){
-                $('.service-vertical-monday').html('<div class="row mt-2 tp-day-cont d-flex align-items-center"><div class="col-md-4 col-12"><button type="button" class="btn btn-danger remove-monday">Remove</button><button type="button" class="btn btn-success save-monday">Save</button></div><div class="col-md-2 col-6"><span class="tp-start-time">00:00</span></div><div class="col-md-2 col-6"><span class="tp-end-time">00:00</span></div><div class="col-md-2 col-6"><input type="checkbox" class="mon_check"/></div><div class="col-md-2 col-6"><input type="text" class="form-control flatpickr-monday" placeholder="YYYY-MM-DD" /></div></div>')
+                $('#service-vertical-monday').append('<div class="row mt-2 tp-day-cont d-flex align-items-center"><div class="col-md-4 col-12"><button type="button" class="btn btn-danger remove-monday" data-id='+ mon +'>Remove</button><button type="button" class="btn btn-success save-monday ml-1" data-id='+ mon +'>Save</button></div><div class="col-md-2 col-6"><span class="tp-start-time mon-start-time" data-id='+ mon +'>00:00</span></div><div class="col-md-2 col-6"><span class="tp-end-time mon-end-time" data-id='+ mon +'>00:00</span></div><div class="col-md-2 col-6"><input type="checkbox" class="mon_check" data-id='+ mon +' /></div><div class="col-md-2 col-6"><input type="text" class="form-control flatpickr-monday" placeholder="YYYY-MM-DD" data-id='+ mon +' /></div></div>');
+                mon = mon + 1;
             })
         });
-        $('.mon_check').on('change', function(e){
-            $(this).is(':checked') ? $('.flatpickr-monday').css('display', 'inline') : $('.flatpickr-monday').css('display', 'none')
+        $(document).on('click', '.remove-monday', function(){
+            $(this).parent().parent().remove();
         })
-        // Default
-        
-            $('.flatpickr-monday').flatpickr({
-                min: 'today',
-                minDate: 'today',
-                format: 'yyyy-m-d',
-                maxDate: new Date().fp_incr(365),
-                enable: [
-                    function(dateObj){
-                        return dateObj.getDay() %7 == 1;
+
+        $(document).on('click', '.mon_check', function(){
+            var id = $(this).data('id');
+            console.log('id------------->', id);
+            $(this).is(':checked') ? $('.flatpickr-monday[data-id=' + id + ']').css('display', 'inline') : $('.flatpickr-monday[data-id=' + id + ']').css('display', 'none');
+
+            $('.flatpickr-monday[data-id=' + id + ']').flatpickr({
+            min: 'today',
+            minDate: 'today',
+            format: 'yyyy-m-d',
+            maxDate: new Date().fp_incr(365),
+            enable: [
+                function(dateObj){
+                    return dateObj.getDay() %7 == 1;
+                }
+            ]
+        });
+        })
+
+        $(document).on('click', '.save-monday', function(){
+            var id = $(this).data('id');
+            console.log('id------------------>', id);
+            var start_time = $('.mon-start-time[data-id=' + id + ']').text();
+            var end_time = $('.mon-end-time[data-id=' + id + ']').text();
+            var data_check = $('.mon_check[data-id=' + id + ']').is(':checked') ? 1 : 0;
+            var selectdata = $('.flatpickr-monday[data-id=' + id + ']').val();
+            console.log('start_time', start_time);
+            console.log('end_time', end_time);
+            console.log('data_check', data_check);
+            console.log('selectdata', selectdata);
+            // createId
+            var url = 'service'
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('#csrf_token_hidden').val()
+                },
+                type: 'post',
+                url: transaction,
+                data: { submerchantid: submerchantid },
+                success: function (data) {
+                    if (data['success']) {
+                       
                     }
-                ]
+                    else {
+                        console.log('error');
+                    }
+                }
             });
+        });
+              
+     
         
 
         $(document).ready(function(){

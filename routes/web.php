@@ -16,6 +16,7 @@ use App\Http\Controllers\DatatransSettingController;
 use App\Http\Controllers\DatatransLocationController;
 use App\Http\Controllers\DatatransEmployeeController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Models\DatatransService;
 use Illuminate\Support\Facades\Artisan;
 
 /*
@@ -57,7 +58,7 @@ Route::get('/', function () {
 
         Route::get('datatrans-service-list/{id}', [DatatransServiceController::class, 'createpage'])->name('datatrans.service.createpage');
 
-
+        Route::post('datatrans-week-create', [DatatransServiceController::class, 'weekcrate'])->name('datatrans.service.weekcreate');
 
 
 
