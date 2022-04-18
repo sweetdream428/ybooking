@@ -88,7 +88,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <!-- Modal to add new user starts-->
+                        {{-- <!-- Modal to add new user starts-->
                         <div class="modal modal-slide-in new-user-modal fade" id="modals-slide-in">
                             <div class="modal-dialog">
                                 <form class="add-new-user modal-content pt-0">
@@ -310,7 +310,7 @@
                                 </form>
                             </div>
                         </div>
-                        <!-- Modal to update new user Ends-->
+                        <!-- Modal to update new user Ends--> --}}
                     </div>
                    
                     <!-- users list ends -->
@@ -342,7 +342,6 @@
         $('.duration_value').change(function(e){
             duration = $('.duration_value option:selected').text();
             duration_name.val(duration);
-            console.log(duration);
         });
         
         $(document).on("click", ".update_service", function()  {
@@ -361,9 +360,7 @@
                 uduration = $('.uduration_value option:selected').text();
                 uduration_name.val(uduration);
             });
-            
-            $("#ustart_time").val($(this).data('start_time'));
-            $("#uend_time").val($(this).data('end_time'));
+
             $("#uallow").val($(this).data('allow'));
 			$("#ucategory").val($(this).data('category'));
             $("#ulocation").val($(this).data('location'));

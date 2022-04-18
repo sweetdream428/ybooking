@@ -40,28 +40,28 @@ class DatatransServiceController extends Controller
         
         try{
             $services = new DatatransService;
-            $services->title = request('title');
-			$services->category = request('category');
-            $services->employee = request('employee');
-            $services->location = request('location');
-            $services->duration = request('duration');
-            $services->duration_name = request('duration_name');
-            $services->price = request('price');
-            $services->sun = request('sun') ? 1 : 0;
-            $services->mon = request('mon') ? 1 : 0;
-            $services->tue = request('tue') ? 1 : 0;
-            $services->wed = request('wed') ? 1 : 0;
-            $services->thu = request('thu') ? 1 : 0;
-            $services->fri = request('fri') ? 1 : 0;
-            $services->sat = request('sat') ? 1 : 0;
-            $services->allow = request('allow');
+            // $services->title = request('title');
+			// $services->category = request('category');
+            // $services->employee = request('employee');
+            // $services->location = request('location');
+            // $services->duration = request('duration');
+            // $services->duration_name = request('duration_name');
+            // $services->price = request('price');
+            // $services->sun = request('sun') ? 1 : 0;
+            // $services->mon = request('mon') ? 1 : 0;
+            // $services->tue = request('tue') ? 1 : 0;
+            // $services->wed = request('wed') ? 1 : 0;
+            // $services->thu = request('thu') ? 1 : 0;
+            // $services->fri = request('fri') ? 1 : 0;
+            // $services->sat = request('sat') ? 1 : 0;
+            // $services->allow = request('allow');
             $services->own_id = Auth::user()->id;
             $services->save();
 
-            // $id = DB::getPdo()->lastInsertId();
+            $id = DB::getPdo()->lastInsertId();
 
 
-            return response()->json(['success'=>true]);
+            return response()->json(['success'=>$id]);
         }catch (Exception $e) {
             return response()->json(['success'=>false]);
         }  
