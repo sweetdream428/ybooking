@@ -19,7 +19,7 @@
                             <h4 class="card-title mb-1">Adventure starts here </h4>
                             <p class="card-text mb-2 pr-5 mr-5">Make your app management easy and fun!</p>
 
-                            <form class="auth-register-form mt-2" action="{{ route('register.custom') }}" method="POST">
+                            <form class="auth-register-form mt-2" action="{{ route('register.custom') }}" method="post">
                                 @csrf
                                 <div class="form-group">
                                     <label for="username" class="form-label">Username</label>

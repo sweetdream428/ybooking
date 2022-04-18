@@ -60,6 +60,113 @@
     .slider.round:before {
         border-radius: 50%;
     }
+
+
+    /* TIME */
+
+    :root{
+        --main-color: #1a535c;
+        --secondary-color: #4ecdc4;
+        --white-color: #f7fff7;
+        --main-accent-color: #ff6b6b;
+        --secondary-accent-color: #ffe66d;
+        --dark-color: #2D232E;
+    }
+
+       
+    h3, h4{
+        color: var(--main-color)
+    }
+
+    h6{
+        color: var(--secondary-color);
+    }
+
+    .day-txt{
+        display: inline-block;
+        transition: all ease-out 0.3s;de
+    }
+
+    .row:hover .day-txt{
+        transform: translateX(5px);
+        text-shadow: 0 0 0;
+    }
+
+    .tp-start-time,
+    .tp-end-time{
+        color: var(--main-color);
+        cursor: pointer;
+        display: inline-block;
+        transition: all ease-out 0.3s;
+    }
+
+    .tp-start-time:hover,
+    .tp-end-time:hover{
+        transform: scale(1.2);
+        text-shadow: 0 0 0 var(--main-color);
+        
+    }
+
+
+        /* timePicker.css */
+    #tp-modal .modal-footer{
+        border: none;
+    }
+
+    #tp-modal .modal-header{
+        border: none;
+    }
+
+    #tp-time-cont{
+        display: flex;
+        text-align: center;
+        background: white;
+        position: relative;
+        align-items: stretch;
+    }
+
+    #tp-colon{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #tp-time-cont button{
+        border: none;
+        background: transparent;
+        height: auto;
+        padding: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        outline: none!important;
+        transition: all ease-out 0.3s;
+    }
+
+    #tp-hour-cont,
+    #tp-minutes-cont{
+        flex-grow: 1;
+    }
+
+    #tp-time-cont button:hover{
+        transform: scale(1.3);
+        color: var(--main-color);
+    }
+
+    .tp-value{
+        font-size: 2rem;
+        line-height: 2rem;
+    }
+
+    #tp-set-btn{
+        background: var(--main-color);
+        border-color: var(--main-color);
+    }
+    .flatpickr-monday{
+        display: none;
+    }
+
 </style>
 <!-- END: Head-->
 <!-- BEGIN: Body-->
@@ -210,7 +317,7 @@
                                             <div class="tab-content">
                                                 <!-- monday tab -->
                                                 <div role="tabpanel" class="tab-pane active" id="service-vertical-monday" aria-labelledby="service-pill-general" aria-expanded="true">
-                                                    <div class="col-12 row">
+                                                    <div class="row">
                                                         <div class="col-6">
                                                             <label for="monday" class="form-label font-weight-bold">Monday:</label>
                                                         </div>
@@ -221,6 +328,12 @@
                                                             </label>
                                                         </div>
                                                     </div>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <button class="btn btn-info add-monday" type="button">Add</button>
+                                                        </div>
+                                                    </div>
+                                                    
                                                 </div>
                                                 <!--/ monday tab -->
         
@@ -285,217 +398,237 @@
     <script>
 
         $(function(){
-            var timePickr = $('.flatpickr-time');
-            if (timePickr.length) {
-                timePickr.flatpickr({
-                    enableSeconds: true,
-                    enableTime: true,
-                    noCalendar: true,
-                    time_24hr: true 
-                });
-            }
-            $('.btn-sunday').on('click', function(e){
-                $('.form-sunday').append('<div class="row col-12 px-0 mx-0"><div class="col-md-4 col-12"><label class="form-label invisible" for="cancel">Cancel</label><div class=""><button type="button" class="btn-cancel btn btn-outline-secondary">Cancel</button></div></div><div class="col-md-4 col-12"><div class="form-group"><label class="form-label" for="start_time">Start Time</label><input type="text" class="form-control flatpickr-time sun_start_time text-left" placeholder="HH:MM" style="height: 34px;" required/></div></div><div class="col-md-4 col-12"><div class="form-group"><label class="form-label" for="end_time">End Time</label><input type="text" class="form-control flatpickr-time text-left sun_end_time" placeholder="HH:MM" style="height: 34px;" required/></div></div></div>');
-                var timePickr = $('.sun_start_time').last();
-                if (timePickr.length) {
-                    timePickr.flatpickr({
-                        enableSeconds: true,
-                        enableTime: true,
-                        noCalendar: true,
-                        time_24hr: true 
-                    });
-                }
-                var timePickrEnd = $('.sun_end_time').last();
-                if (timePickrEnd.length) {
-                    timePickrEnd.flatpickr({
-                        enableSeconds: true,
-                        enableTime: true,
-                        noCalendar: true,
-                        time_24hr: true 
-                    });
-                }
+            $('.add-monday').on('click', function(e){
+                $('.service-vertical-monday').html('<div class="row mt-2 tp-day-cont d-flex align-items-center"><div class="col-md-4 col-12"><button type="button" class="btn btn-danger remove-monday">Remove</button><button type="button" class="btn btn-success save-monday">Save</button></div><div class="col-md-2 col-6"><span class="tp-start-time">00:00</span></div><div class="col-md-2 col-6"><span class="tp-end-time">00:00</span></div><div class="col-md-2 col-6"><input type="checkbox" class="mon_check"/></div><div class="col-md-2 col-6"><input type="text" class="form-control flatpickr-monday" placeholder="YYYY-MM-DD" /></div></div>')
+            })
+        });
+        $('.mon_check').on('change', function(e){
+            $(this).is(':checked') ? $('.flatpickr-monday').css('display', 'inline') : $('.flatpickr-monday').css('display', 'none')
+        })
+        // Default
+        
+            $('.flatpickr-monday').flatpickr({
+                min: 'today',
+                minDate: 'today',
+                format: 'yyyy-m-d',
+                maxDate: new Date().fp_incr(365),
+                enable: [
+                    function(dateObj){
+                        return dateObj.getDay() %7 == 1;
+                    }
+                ]
             });
-            $('.btn-monday').on('click', function(e){
-                $('.form-monday').append('<div class="row col-12 px-0 mx-0"><div class="col-md-4 col-12"><label class="form-label invisible" for="cancel">Cancel</label><div class=""><button type="button" class="btn-cancel btn btn-outline-secondary">Cancel</button></div></div><div class="col-md-4 col-12"><div class="form-group"><label class="form-label" for="start_time">Start Time</label><input type="text" class="form-control flatpickr-time text-left mon_start_time" placeholder="HH:MM" style="height: 34px;" required/></div></div><div class="col-md-4 col-12"><div class="form-group"><label class="form-label" for="end_time">End Time</label><input type="text" class="form-control flatpickr-time text-left mon_end_time" placeholder="HH:MM" style="height: 34px;" required/></div></div></div>');
-                var timePickr = $('.mon_start_time').last();
-                if (timePickr.length) {
-                    timePickr.flatpickr({
-                        enableSeconds: true,
-                        enableTime: true,
-                        noCalendar: true,
-                        time_24hr: true 
-                    });
-                }
-                var timePickrEnd = $('.mon_end_time').last();
-                if (timePickrEnd.length) {
-                    timePickrEnd.flatpickr({
-                        enableSeconds: true,
-                        enableTime: true,
-                        noCalendar: true,
-                        time_24hr: true 
-                    });
-                }
-            });
-            $('.btn-tuesday').on('click', function(e){
-                $('.form-tuesday').append('<div class="row col-12 px-0 mx-0"><div class="col-md-4 col-12"><label class="form-label invisible" for="cancel">Cancel</label><div class=""><button type="button" class="btn-cancel btn btn-outline-secondary">Cancel</button></div></div><div class="col-md-4 col-12"><div class="form-group"><label class="form-label" for="tue_start_time">Start Time</label><input type="text" class="form-control flatpickr-time text-left tue_start_time" placeholder="HH:MM" style="height: 34px;" required/></div></div><div class="col-md-4 col-12"><div class="form-group"><label class="form-label" for="tue_end_time">End Time</label><input type="text" class="form-control flatpickr-time text-left tue_end_time" placeholder="HH:MM" style="height: 34px;" required/></div></div></div>');
-                var timePickr = $('.tue_start_time').last();
-                if (timePickr.length) {
-                    timePickr.flatpickr({
-                        enableSeconds: true,
-                        enableTime: true,
-                        noCalendar: true,
-                        time_24hr: true 
-                    });
-                }
-                var timePickrEnd = $('.tue_end_time').last();
-                if (timePickrEnd.length) {
-                    timePickrEnd.flatpickr({
-                        enableSeconds: true,
-                        enableTime: true,
-                        noCalendar: true,
-                        time_24hr: true 
-                    });
-                }
-            });
+        
 
-            $('.btn-wednesday').on('click', function(e){
-                $('.form-wednesday').append('<div class="row col-12 px-0 mx-0"><div class="col-md-4 col-12"><label class="form-label invisible" for="cancel">Cancel</label><div class=""><button type="button" class="btn-cancel btn btn-outline-secondary">Cancel</button></div></div><div class="col-md-4 col-12"><div class="form-group"><label class="form-label" for="wed_start_time">Start Time</label><input type="text" class="form-control flatpickr-time text-left wed_start_time" placeholder="HH:MM" style="height: 34px;" required/></div></div><div class="col-md-4 col-12"><div class="form-group"><label class="form-label" for="wed_end_time">End Time</label><input type="text" class="form-control flatpickr-time text-left wed_end_time" placeholder="HH:MM" style="height: 34px;" required/></div></div></div>');
-                var timePickr = $('.wed_start_time').last();
-                if (timePickr.length) {
-                    timePickr.flatpickr({
-                        enableSeconds: true,
-                        enableTime: true,
-                        noCalendar: true,
-                        time_24hr: true 
-                    });
-                }
-                var timePickrEnd = $('.wed_end_time').last();
-                if (timePickrEnd.length) {
-                    timePickrEnd.flatpickr({
-                        enableSeconds: true,
-                        enableTime: true,
-                        noCalendar: true,
-                        time_24hr: true 
-                    });
-                }
-            });
-
-            $('.btn-thursday').on('click', function(e){
-                $('.form-thursday').append('<div class="row col-12 px-0 mx-0"><div class="col-md-4 col-12"><label class="form-label invisible" for="cancel">Cancel</label><div class=""><button type="button" class="btn-cancel btn btn-outline-secondary">Cancel</button></div></div><div class="col-md-4 col-12"><div class="form-group"><label class="form-label" for="thu_start_time">Start Time</label><input type="text" class="form-control flatpickr-time text-left thu_start_time" placeholder="HH:MM" style="height: 34px;" required/></div></div><div class="col-md-4 col-12"><div class="form-group"><label class="form-label" for="thu_end_time">End Time</label><input type="text" class="form-control flatpickr-time text-left thu_end_time" placeholder="HH:MM" style="height: 34px;" required/></div></div></div>');
-                var timePickr = $('.thu_start_time').last();
-                if (timePickr.length) {
-                    timePickr.flatpickr({
-                        enableSeconds: true,
-                        enableTime: true,
-                        noCalendar: true,
-                        time_24hr: true 
-                    });
-                }
-                var timePickrEnd = $('.thu_end_time').last();
-                if (timePickrEnd.length) {
-                    timePickrEnd.flatpickr({
-                        enableSeconds: true,
-                        enableTime: true,
-                        noCalendar: true,
-                        time_24hr: true 
-                    });
-                }
-            });
-
-            $('.btn-friday').on('click', function(e){
-                $('.form-friday').append('<div class="row col-12 px-0 mx-0"><div class="col-md-4 col-12"><label class="form-label invisible" for="cancel">Cancel</label><div class=""><button type="button" class="btn-cancel btn btn-outline-secondary">Cancel</button></div></div><div class="col-md-4 col-12"><div class="form-group"><label class="form-label" for="fri_start_time">Start Time</label><input type="text" class="form-control flatpickr-time text-left fri_start_time" placeholder="HH:MM" style="height: 34px;" required/></div></div><div class="col-md-4 col-12"><div class="form-group"><label class="form-label" for="fri_end_time">End Time</label><input type="text" class="form-control flatpickr-time text-left fri_end_time" placeholder="HH:MM" style="height: 34px;" required/></div></div></div>');
-                var timePickr = $('.fri_start_time').last();
-                if (timePickr.length) {
-                    timePickr.flatpickr({
-                        enableSeconds: true,
-                        enableTime: true,
-                        noCalendar: true,
-                        time_24hr: true 
-                    });
-                }
-                var timePickrEnd = $('.fri_end_time').last();
-                if (timePickrEnd.length) {
-                    timePickrEnd.flatpickr({
-                        enableSeconds: true,
-                        enableTime: true,
-                        noCalendar: true,
-                        time_24hr: true 
-                    });
-                }
-            });
-
-            $('.btn-saturday').on('click', function(e){
-                
-                $('.form-saturday').append('<div class="row col-12 px-0 mx-0"><div class="col-md-4 col-12"><label class="form-label invisible" for="cancel">Cancel</label><div class=""><button type="button" class="btn-cancel btn btn-outline-secondary">Cancel</button></div></div><div class="col-md-4 col-12"><div class="form-group"><label class="form-label" for="sat_start_time">Start Time</label><input type="text" class="form-control flatpickr-time text-left sat_start_time" placeholder="HH:MM" style="height: 34px;" required/></div></div><div class="col-md-4 col-12"><div class="form-group"><label class="form-label" for="sat_end_time">End Time</label><input type="text" class="form-control flatpickr-time text-left sat_end_time" placeholder="HH:MM" style="height: 34px;" required/></div></div></div>');
-                var timePickr = $('.sat_start_time').last();
-                if (timePickr.length) {
-                    timePickr.flatpickr({
-                        enableSeconds: true,
-                        enableTime: true,
-                        noCalendar: true,
-                        time_24hr: true 
-                    });
-                }
-                var timePickrEnd = $('.sat_end_time').last();
-                if (timePickrEnd.length) {
-                    timePickrEnd.flatpickr({
-                        enableSeconds: true,
-                        enableTime: true,
-                        noCalendar: true,
-                        time_24hr: true 
-                    });
-                }
-                
-                
+        $(document).ready(function(){
+            
+            $(document).on('click', '.tp-start-time', function(){
+                timePicker($(this));
             });
             
-            $(document).on('click', '.btn-cancel', function(e){
-                $(this).parent().parent().parent().remove();
+            $(document).on('click', '.tp-end-time', function(){
+                startTime = $(this).closest('.tp-day-cont').find('.tp-start-time').html();
+                timePicker($(this), 5, getHour(startTime));
             });
-            $('.create-data-submit').on('submit', function(e){
-                var sunlength = $('.sun_start_time').length;
-                var monlength = $('.mon_start_time').length;
-                var tuelength = $('.tue_start_time').length;
-                var wedlength = $('.wed_start_time').length;
-                var thulength = $('.thu_start_time').length;
-                var frilength = $('.fri_start_time').length;
-                var satlength = $('.sat_start_time').length;
-                console.log('monlength', monlength);
-                console.log('tuelength', tuelength);
-                console.log('tuelength', tuelength);
-                console.log('wedlength', wedlength);
-                
-                for(var i = 0; i<sunlength; i++){
-                    console.log('sun_start_time', $('.sun_start_time').eq(i).val());
-                    console.log('sun_end_time', $('.sun_end_time').eq(i).val());
-                }
-                for(var i = 0; i<monlength; i++){
-                    console.log('mon_start_time', $('.mon_start_time').eq(i).val());
-                    console.log('mon_end_time', $('.mon_end_time').eq(i).val());
-                }
-                for(var i = 0; i<tuelength; i++){
-                    console.log('tue_start_time', $('.tue_start_time').eq(i).val());
-                    console.log('tue_end_time', $('.tue_end_time').eq(i).val());
-                }
-                for(var i = 0; i<wedlength; i++){
-                    console.log('wed_start_time', $('.wed_start_time').eq(i).val());
-                    console.log('wed_end_time', $('.wed_end_time').eq(i).val());
-                }
-                for(var i = 0; i<thulength; i++){
-                    console.log('thu_start_time', $('.thu_start_time').eq(i).val());
-                    console.log('thu_end_time', $('.thu_end_time').eq(i).val());
-                }
-                for(var i = 0; i<frilength; i++){
-                    console.log('fri_start_time', $('.fri_start_time').eq(i).val());
-                    console.log('fri_end_time', $('.fri_end_time').eq(i).val());
-                }
-                for(var i = 0; i<satlength; i++){
-                    console.log('sat_start_time', $('.sat_start_time').eq(i).val());
-                    console.log('sat_end_time', $('.sat_end_time').eq(i).val());
-                }
-                
             });
-        });
+
+            function timePicker($elem, minutesStep = 5, startHour = 0, startMinutes = 0, endHour = 23, endMinutes = 59, defaultTime)
+            {
+            let currentHour = '12';
+            let currentMinutes = '00';
+            if(startHour < 0 || startHour > 23){
+                startHour = 0;
+            }
+            if (endHour < startHour || endHour > 23){
+                endHour = 23;
+            }
+            
+            if (startMinutes < 0 || startMinutes > 59){
+                startMinutes = 0;
+            }
+            if (endMinutes <= startMinutes || endMinutes > 59){
+                endMinutes = 59;
+            }
+            
+            if (minutesStep < 1 || minutesStep > 60){
+                minutesStep = 5;
+            }
+            
+            if (!defaultTime){
+                let currentTime = $elem.html();
+                if(isValidTime(currentTime)){
+                currentHour = getHour(currentTime);
+                currentMinutes = getMinutes(currentTime);
+                }
+            }
+            let modal = '<div id="tp-modal" class="modal fade" tabindex="-1">' +
+                '<div class="modal-dialog modal-sm">' +
+                    '<div class="modal-content">' +
+                    '<div class="modal-header"><h4>Set Time</h4></div>' +
+                    '<div class="modal-body pt-0 pl-0 pr-0 ">' +
+                        '<div id="tp-time-cont">' +
+                        '<div id="tp-hour-cont" class="mr-1 text-right">' +
+                            '<button id="tp-h-up" class="ml-auto"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">' +
+                        '<path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>' +
+                            '</svg></button>' +
+                            '<div id="tp-h-value" class="tp-value">12</div>' +
+                            '<button id="tp-h-down" class="ml-auto">' +
+                            '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">' +
+                        '<path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>' +
+                            '</svg>' +
+                            '</button>' +
+                        '</div>' +
+                        '<div id="tp-colon">:</div>' +
+                        '<div id="tp-minutes-cont" class="ml-1 text-left">' +
+                            '<button id="tp-m-up"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">' +
+                        '<path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>' +
+                            '</svg></button>' +
+                            '<div id="tp-m-value" class="tp-value">12</div>' +
+                            '<button id="tp-m-down">' +
+                            '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">' +
+                        '<path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>' +
+                            '</svg>' +
+                            '</button>' +
+                        '</div>' +
+                        '</div>' +
+                    '<div class="modal-footer">' +
+                        '<button type="button" id="tp-cancel-btn" class="btn btn-secondary" data-dismiss="modal">Cancel</button>' +
+                        '<button type="button" id="tp-set-btn" class="btn btn-primary">Set</button>' +
+                    '</div>' +
+                    '</div>' +
+                '</div>' +
+                '</div>';
+            $('body').append(modal);
+            
+            $('#tp-h-value').html(currentHour);
+            $('#tp-m-value').html(currentMinutes);
+            
+            $('#tp-h-up').off('click').on('click', function(){
+                let val = parseInt($('#tp-h-value').html()) + 1;
+                if (val == endHour + 1){
+                $('#tp-h-value').html(('0' + startHour).substr(-2));
+                } else {
+                $('#tp-h-value').html(('0' + val).substr(-2));
+                }
+            });
+            
+            $('#tp-h-down').off('click').on('click', function(){
+                let val = parseInt($('#tp-h-value').html()) - 1;
+                if (val == startHour - 1){
+                $('#tp-h-value').html(('0' + endHour).substr(-2));
+                } else {
+                $('#tp-h-value').html(('0' + val).substr(-2));
+                }
+            });
+            
+            $('#tp-m-up').off('click').on('click', function(){
+                let val = parseInt($('#tp-m-value').html()) + minutesStep;
+                if (val >= endMinutes + 1){
+                $('#tp-m-value').html((startMinutes == 0)? '00' : ('0' + (startMinutes + minutesStep - startMinutes % minutesStep)).substr(-2));
+                } else {
+                $('#tp-m-value').html(('0' + val).substr(-2));
+                }
+            });
+            
+            $('#tp-m-down').off('click').on('click', function(){
+                let val = parseInt($('#tp-m-value').html()) - minutesStep;
+                if (val <= startMinutes - 1){
+                $('#tp-m-value').html(('0' + (endMinutes - endMinutes % minutesStep)).substr(-2));
+                } else {
+                $('#tp-m-value').html(('0' + val).substr(-2));
+                }
+            });
+            
+            $('#tp-set-btn').off('click').on('click', function(){
+                let h = $('#tp-h-value').html();
+                let m = $('#tp-m-value').html();
+                
+                $elem.html(h + ':' + m);
+                
+                if ($elem.hasClass('tp-start-time')){
+                let $endTimeElem = $elem.closest('.tp-day-cont').find('.tp-end-time');
+                if ($endTimeElem.length > 0){
+                    if (compareTimes($elem.html(), $endTimeElem.html()) == 0 || compareTimes($elem.html(), $endTimeElem.html()) == 1){
+                    $endTimeElem.html(newEndTime($elem.html(), minutesStep));
+                    }
+                }
+                } else {
+                let $startTimeElem = $elem.closest('.tp-day-cont').find('.tp-start-time');
+                if ($startTimeElem.length > 0){
+                    if (compareTimes($startTimeElem.html(), $elem.html()) == 0 || compareTimes($startTimeElem.html(), $elem.html()) == 1){
+                    $elem.html(newEndTime($startTimeElem.html(), minutesStep));
+                    }
+                }
+                }
+                $('#tp-modal').modal('hide');
+            });
+            
+            $('#tp-modal').modal('show');
+            }
+            
+            function getHour(time){
+            return time.substr(0, time.indexOf(':'));
+            }
+
+            function getIntHour(time){
+            return parseInt(getHour(time));
+            }
+
+            function getMinutes(time){
+            return time.substr(time.indexOf(':') + 1);
+            }
+
+            function getIntMinutes(time){
+            return parseInt(getMinutes(time));
+            }
+
+            function isValidTime(time){
+            let patt = /([01]?\d):([0-5]\d)/g;
+            return patt.test(time);
+            }
+
+            function compareTimes(time1, time2){
+            if (!isValidTime(time1) || !isValidTime(time2)) {
+                return -1;
+            }
+            if (time1 == time2){
+                return 0;
+            } else if(getIntHour(time1) > getIntHour(time2)) {
+                return 1;
+            } else if(getIntHour(time1) == getIntHour(time2)) {
+                if (getIntMinutes(time1) > getIntMinutes(time2)) {
+                return 1;
+                }
+                else {
+                return 2;
+                }
+            } else {
+                return 2;
+            }
+            }
+
+            function newEndTime(startTime, minutesStep){
+            if (!isValidTime(startTime)){
+                return -1;
+            }
+            
+            let hour = getIntHour(startTime);
+            let minutes = getIntMinutes(startTime);
+            
+            if (minutes + minutesStep > 59){
+                minutes = 0;
+                hour++;
+                if (hour > 23){
+                return startTime;
+                }
+            } else {
+                minutes += minutesStep;
+            }
+            
+            hour = ("0" + hour).substr(-2);
+            minutes = ("0" + minutes).substr(-2);
+            return hour + ":" + minutes;
+        }
         
    
     </script>
