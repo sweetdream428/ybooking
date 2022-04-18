@@ -32,7 +32,7 @@ use Illuminate\Support\Facades\Artisan;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::middleware('web')->group(function () {
+// Route::middleware('web')->group(function () {
 
     Route::get('datatrans-service/{id}', [DatatransController::class, 'index'])->name('datatrans.index');
     Route::post('datatrans-service-create', [DatatransController::class, 'create'])->name('datatrans.create');
@@ -149,4 +149,4 @@ Route::middleware('web')->group(function () {
         $exitCode = Artisan::call('view:clear');
         return 'View cache cleared';
     });
-});
+// });

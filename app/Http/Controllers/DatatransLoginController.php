@@ -26,9 +26,10 @@ class DatatransLoginController extends Controller
             'email' => 'required',
             'password' => 'required',
         ]);
+        dd($request->email);
    
         $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials) && (Auth::user()->is_superuser != '3' || Auth::user()->is_superuser != '4')) {
+        if (Auth::attempt($credentials) && (Auth::user()->is_superuser != '3' && Auth::user()->is_superuser != '4')) {
             return redirect()->intended('getevents')
                         ->withSuccess('Signed in');
         }

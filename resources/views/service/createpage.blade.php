@@ -1,6 +1,66 @@
 <!-- BEGIN: Head-->
 @include('layouts.header')
-{{-- <link rel="stylesheet" type="text/css" href="{{ asset('vendor/datatrans/css/pages/app-invoice.css') }}"> --}}
+<style>
+    .switch {
+        position: relative;
+        display: flex;
+        width: 60px;
+        height: 34px;
+    }
+
+    .switch input { 
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked + .slider {
+        background-color: #2196F3;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+</style>
 <!-- END: Head-->
 <!-- BEGIN: Body-->
 
@@ -91,9 +151,121 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            {{-- create-data-submit --}}
                         </form>
+                        <section>
+                            <div class="row">
+                                <!-- left menu section -->
+                                <div class="col-md-3 mb-2 mb-md-0">
+                                    <ul class="nav nav-pills flex-column nav-left">
+                                        <!-- monday -->
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="service-pill-monday" data-toggle="pill" href="#service-vertical-monday" aria-expanded="true">
+                                                <span class="font-weight-bold">Monday</span>
+                                            </a>
+                                        </li>
+                                        <!-- tuesday -->
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="service-pill-tuesday" data-toggle="pill" href="#service-vertical-tuesday" aria-expanded="false">
+                                                <span class="font-weight-bold">Tuesday</span>
+                                            </a>
+                                        </li>
+                                        <!-- wednesday -->
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="service-pill-wednesday" data-toggle="pill" href="#service-vertical-wednesday" aria-expanded="false">
+                                                <span class="font-weight-bold">Wednesday</span>
+                                            </a>
+                                        </li>
+                                        <!-- thursday -->
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="service-pill-thursday" data-toggle="pill" href="#service-vertical-thursday" aria-expanded="false">
+                                                <span class="font-weight-bold">Thursday</span>
+                                            </a>
+                                        </li>
+                                        <!-- friday -->
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="service-pill-friday" data-toggle="pill" href="#service-vertical-friday" aria-expanded="false">
+                                                <span class="font-weight-bold">Friday</span>
+                                            </a>
+                                        </li>
+                                        <!-- saturday -->
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="service-pill-saturday" data-toggle="pill" href="#service-vertical-saturday" aria-expanded="false">
+                                                <span class="font-weight-bold">Saturday</span>
+                                            </a>
+                                        </li>
+                                        <!-- sunday -->
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="service-pill-sunday" data-toggle="pill" href="#service-vertical-sunday" aria-expanded="false">
+                                                <span class="font-weight-bold">Suuday</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!--/ left menu section -->
+        
+                                <!-- right content section -->
+                                <div class="col-md-9">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="tab-content">
+                                                <!-- monday tab -->
+                                                <div role="tabpanel" class="tab-pane active" id="service-vertical-monday" aria-labelledby="service-pill-general" aria-expanded="true">
+                                                    <div class="col-12 row">
+                                                        <div class="col-6">
+                                                            <label for="monday" class="form-label font-weight-bold">Monday:</label>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <label class="switch">
+                                                                <input type="checkbox" class="monday-status">
+                                                                <span class="slider round"></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--/ monday tab -->
+        
+                                                <!-- tuesday-->
+                                                <div class="tab-pane fade" id="service-vertical-tuesday" role="tabpanel" aria-labelledby="service-pill-tuesday" aria-expanded="false">
+                                                    
+                                                </div>
+                                                <!--/ tuesday-->
+        
+                                                <!-- wednesday -->
+                                                <div class="tab-pane fade" id="service-vertical-wednesday" role="tabpanel" aria-labelledby="service-pill-wednesday" aria-expanded="false">
+                                                    
+                                                </div>
+                                                <!--/ wednesday -->
+        
+                                                <!-- thursday -->
+                                                <div class="tab-pane fade" id="service-vertical-thursday" role="tabpanel" aria-labelledby="service-pill-thursday" aria-expanded="false">
+                                                   
+                                                </div>
+                                                <!--/ thursday -->
+        
+                                                <!-- friday -->
+                                                <div class="tab-pane fade" id="service-vertical-friday" role="tabpanel" aria-labelledby="service-pill-friday" aria-expanded="false">
+                                                    
+                                                </div>
+                                                <!--/ friday -->
+
+                                                <!-- saturday -->
+                                                <div class="tab-pane fade" id="service-vertical-saturday" role="tabpanel" aria-labelledby="service-pill-saturday" aria-expanded="false">
+                                                    
+                                                </div>
+                                                <!--/ saturday -->
+
+                                                <!-- sunday -->
+                                                <div class="tab-pane fade" id="service-vertical-sunday" role="tabpanel" aria-labelledby="service-pill-sunday" aria-expanded="false">
+                                                    
+                                                </div>
+                                                <!--/ sunday -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/ right content section -->
+                            </div>
+                        </section>
                     </div>
                    
                 <!-- users list ends -->

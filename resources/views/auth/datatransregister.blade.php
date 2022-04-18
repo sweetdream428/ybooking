@@ -20,7 +20,7 @@
                             <p class="card-text mb-2 pr-5 mr-5">Make your app management easy and fun!</p>
 
                             <form class="auth-register-form mt-2" action="{{ route('register.custom') }}" method="POST">
-                                {{csrf_field()}}
+                                @csrf
                                 <div class="form-group">
                                     <label for="username" class="form-label">Username</label>
                                     <input type="text" class="form-control" id="username" name="name" placeholder="johndoe" aria-describedby="username" tabindex="1" autofocus required/>
