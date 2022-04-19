@@ -59,6 +59,7 @@ Route::get('/', function () {
         Route::get('datatrans-service-list/{id}', [DatatransServiceController::class, 'createpage'])->name('datatrans.service.createpage');
 
         Route::post('datatrans-week-create', [DatatransServiceController::class, 'weekcrate'])->name('datatrans.service.weekcreate');
+        Route::post('datatrans-weel-remove', [DatatransServiceController::class, 'weekremove'])->name('datatrans.service.weekremove');
 
 
 

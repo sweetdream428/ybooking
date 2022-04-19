@@ -73,7 +73,14 @@ class DatatransServiceController extends Controller
         $locations = DB::table('users')->where('is_superuser', '3')->where('own_id', Auth::user()->id)->get();
         $employees = DB::table('users')->where('is_superuser', '4')->where('own_id', Auth::user()->id)->get();
         $createId = $id;
-        return view('service/createpage')->with('services', $services)->with('categories', $categories)->with('locations', $locations)->with('employees', $employees)->with('createId', $createId);
+        $mondays = DB::table('mondays')->where('service_id', $id)->get();
+        $tuesdays = DB::table('tuesdays')->where('service_id', $id)->get();
+        $wednesdays = DB::table('wednesdays')->where('service_id', $id)->get();
+        $thursdays = DB::table('thursdays')->where('service_id', $id)->get();
+        $fridays = DB::table('fridays')->where('service_id', $id)->get();
+        $saturdays = DB::table('saturdays')->where('service_id', $id)->get();
+        $sundays = DB::table('sundays')->where('service_id', $id)->get();
+        return view('service/createpage')->with('services', $services)->with('categories', $categories)->with('locations', $locations)->with('employees', $employees)->with('createId', $createId)->with('mondays', $mondays)->with('tuesdays', $tuesdays)->with('wednesdays', $wednesdays)->with('thursdays', $thursdays)->with('fridays', $fridays)->with('saturdays', $saturdays)->with('sundays', $sundays);
     }
 
     public function weekcrate(Request $request){
@@ -91,8 +98,16 @@ class DatatransServiceController extends Controller
         }catch (Exception $e) {
             return response()->json(['success'=>$e]);
         }
-        
 
+    }
+
+    Public function weekremove(Request $request){
+        try{
+            DB::table($request->weekname)->where('id', $request->real_id)->delete();
+            return response()->json(['success'=>true]);
+        }catch (Exception $e) {
+            return response()->json(['success'=>false]);
+        }
     }
 
     public function update($id){

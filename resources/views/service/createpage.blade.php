@@ -328,11 +328,33 @@
                                                             </label>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
+
+                                                    <div class="row mt-2">
                                                         <div class="col-6">
                                                             <button class="btn btn-info add-monday" type="button">Add</button>
                                                         </div>
                                                     </div>
+
+                                                    @foreach ($mondays as $monday)
+                                                        <div class="row mt-2 tp-day-cont d-flex align-items-center">
+                                                            <div class="col-md-4 col-12">
+                                                                <button type="button" class="btn btn-danger remove-monday" data-id='live_{{$monday->id}}'>Remove</button>
+                                                                <button type="button" class="btn btn-success save-monday ml-1" data-id='live_{{$monday->id}}'>Saved</button>
+                                                            </div>
+                                                            <div class="col-md-2 col-6">
+                                                                <span class="tp-start-time mon-start-time" data-id='live_{{$monday->id}}'>{{$monday->start_time}}</span>
+                                                            </div>
+                                                            <div class="col-md-2 col-6">
+                                                                <span class="tp-end-time mon-end-time" data-id='live_{{$monday->id}}'>{{$monday->end_time}}</span>
+                                                            </div>
+                                                            <div class="col-md-2 col-6">
+                                                                <input type="checkbox" class="mon_check" data-id='live_{{$monday->id}}' {{$monday->date_check == 1 ? 'checked' : ''}}/>
+                                                            </div>
+                                                            <div class="col-md-2 col-6">
+                                                                <input type="text" class="form-control flatpickr-monday" placeholder="YYYY-MM-DD" data-id='live_{{$monday->id}}' value="{{$monday->selectdata}}" style="{{$monday->date_check == 1 ? 'display:inline;' : 'display:none;'}}"/>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
                                                     
                                                 </div>
                                                 <!--/ monday tab -->
@@ -404,9 +426,6 @@
                 mon = mon + 1;
             })
         });
-        $(document).on('click', '.remove-monday', function(){
-            $(this).parent().parent().remove();
-        })
 
         $(document).on('click', '.mon_check', function(){
             var id = $(this).data('id');
@@ -434,11 +453,7 @@
             var date_check = $('.mon_check[data-id=' + id + ']').is(':checked') ? 1 : 0;
             var selectdata = $('.flatpickr-monday[data-id=' + id + ']').val() ? $('.flatpickr-monday[data-id=' + id + ']').val() : '0';
             var service_id = '{{$createId}}'
-            console.log('start_time', start_time);
-            console.log('end_time', end_time);
-            console.log('date_check', date_check);
-            console.log('selectdata', selectdata);
-            console.log('service_id', service_id);
+            
             // createId
             var url = '/datatrans-week-create';
             $.ajax({
@@ -450,13 +465,45 @@
                 data: { start_time: start_time, end_time : end_time, date_check : date_check, selectdata : selectdata, weekname : 'mondays', service_id : service_id },
                 success: function (data) {
                     if (data['success']) {
-                       
+                        $('.remove-monday[data-id=' + id + ']').attr("data-id", 'live_' + data['success']);
+                        $('.save-monday[data-id=' + id + ']').html('Saved');
+                        $('.save-monday[data-id=' + id + ']').attr("data-id", 'live_' + data['success']);
                     }
                     else {
                         console.log('error');
                     }
                 }
             });
+        });
+
+        $(document).on('click', '.remove-monday', function(e){
+            var id = $(this).data('id').toString();
+            console.log('id----------->', id);
+            if(id.includes("live_")){
+                var real_id = id.split('_')[1];
+                var remove_url = '/datatrans-weel-remove';
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'post',
+                    url: remove_url,
+                    data:{weekname: 'mondays', real_id : real_id},
+                    success: function (data) {
+                        if(data['success']) {
+                            console.log('remove');
+                        }
+                        else {
+                            console.log('error');
+                        }
+                    }
+                });
+                $(this).parent().parent().remove();
+            }
+            else{
+                $(this).parent().parent().remove();
+            }
+            
         });
               
      
