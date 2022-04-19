@@ -111,6 +111,7 @@ class DatatransServiceController extends Controller
     }
 
     public function weekupdate(Request $request){
+        
         try{
             DB::table($request->weekname)->where('id', $request->real_id)->update([
                 'start_time' => $request->start_time,
