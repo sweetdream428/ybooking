@@ -422,7 +422,7 @@
         $(function(){
             var mon = 0;
             $('.add-monday').on('click', function(e){
-                $('#service-vertical-monday').append('<div class="row mt-2 tp-day-cont d-flex align-items-center"><div class="col-md-4 col-12"><button type="button" class="btn btn-danger remove-monday" data-id='+ mon +'>Remove</button><button type="button" class="btn btn-success save-monday ml-1" data-id='+ mon +'>Save</button></div><div class="col-md-2 col-6"><span class="tp-start-time mon-start-time" data-id='+ mon +'>00:00</span></div><div class="col-md-2 col-6"><span class="tp-end-time mon-end-time" data-id='+ mon +'>00:00</span></div><div class="col-md-2 col-6"><input type="checkbox" class="mon_check" data-id='+ mon +' /></div><div class="col-md-2 col-6"><input type="text" class="form-control flatpickr-monday" placeholder="YYYY-MM-DD" data-id='+ mon +' /></div></div>');
+                $('#service-vertical-monday').append('<div class="row mt-2 tp-day-cont d-flex align-items-center"><div class="col-md-4 col-12"><button type="button" class="btn btn-danger remove-monday" data-id='+ mon +'>Remove</button><button type="button" class="btn btn-success save-monday ml-2" data-id='+ mon +'>Save</button></div><div class="col-md-2 col-6"><span class="tp-start-time mon-start-time" data-id='+ mon +'>00:00</span></div><div class="col-md-2 col-6"><span class="tp-end-time mon-end-time" data-id='+ mon +'>00:00</span></div><div class="col-md-2 col-6"><input type="checkbox" class="mon_check" data-id='+ mon +' /></div><div class="col-md-2 col-6"><input type="text" class="form-control flatpickr-monday" placeholder="YYYY-MM-DD" data-id='+ mon +' /></div></div>');
                 mon = mon + 1;
             })
         });
@@ -446,7 +446,7 @@
         })
 
         $(document).on('click', '.save-monday', function(){
-            var id = $(this).data('id');
+            var id = $(this).data('id').toString();
             
             var start_time = $('.mon-start-time[data-id=' + id + ']').text();
             var end_time = $('.mon-end-time[data-id=' + id + ']').text();
@@ -455,27 +455,50 @@
             var service_id = '{{$createId}}'
             
             // createId
-            var url = '/datatrans-week-create';
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: 'post',
-                url: url,
-                data: { start_time: start_time, end_time : end_time, date_check : date_check, selectdata : selectdata, weekname : 'mondays', service_id : service_id },
-                success: function (data) {
-                    if (data['success']) {
-                        $('.remove-monday[data-id=' + id + ']').attr("data-id", 'live_' + data['success']);
-                        $('.save-monday[data-id=' + id + ']').html('Saved');
-                        $('.save-monday[data-id=' + id + ']').attr("data-id", 'live_' + data['success']);
-                    }
-                    else {
-                        console.log('error');
-                    }
+            var createurl = '/datatrans-week-create';
+            var updateurl = '/datatrans-week-update';
+            if(start_time != end_time){
+                if(id.includes("live_")){
+                    var real_id = id.split('_')[1];
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type: 'post',
+                        url: updateurl,
+                        data: { start_time: start_time, end_time : end_time, date_check : date_check, selectdata : selectdata, weekname : 'mondays', service_id : service_id },
+                        success: function (data) {
+                            if (data['success']) {
+                            }
+                            else {
+                                console.log('error');
+                            }
+                        }
+                    });
                 }
-            });
+                else{
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type: 'post',
+                        url: createurl,
+                        data: { start_time: start_time, end_time : end_time, date_check : date_check, selectdata : selectdata, weekname : 'mondays', service_id : service_id },
+                        success: function (data) {
+                            if (data['success']) {
+                                $('.remove-monday[data-id=' + id + ']').attr("data-id", 'live_' + data['success']);
+                                $('.save-monday[data-id=' + id + ']').html('Saved');
+                                $('.save-monday[data-id=' + id + ']').attr("data-id", 'live_' + data['success']);
+                            }
+                            else {
+                                console.log('error');
+                            }
+                        }
+                    });
+                }  
+            }
         });
-
+        // Remove
         $(document).on('click', '.remove-monday', function(e){
             var id = $(this).data('id').toString();
             console.log('id----------->', id);

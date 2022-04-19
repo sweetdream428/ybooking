@@ -110,6 +110,21 @@ class DatatransServiceController extends Controller
         }
     }
 
+    public function weekupdate(Request $request){
+        try{
+            DB::table($request->weekname)->where('id', $request->real_id)->update([
+                'start_time' => $request->start_time,
+                'end_time' => $request->end_time,
+                'date_check' => $request->date_check,
+                'selectdata' => $request->selectdata,
+                'service_id' => $request->service_id
+            ]);
+            return response()->json(['success'=>true]);
+        }catch (Exception $e) {
+            return response()->json(['success'=>false]);
+        }
+    }
+
     public function update($id){
         
         try{

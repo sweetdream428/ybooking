@@ -60,6 +60,8 @@ Route::get('/', function () {
 
         Route::post('datatrans-week-create', [DatatransServiceController::class, 'weekcrate'])->name('datatrans.service.weekcreate');
         Route::post('datatrans-weel-remove', [DatatransServiceController::class, 'weekremove'])->name('datatrans.service.weekremove');
+        
+        Route::post('datatrans-week-update', [DatatransServiceController::class, 'weekupdate'])->name('datatrans.service.weekupdate');
 
 
 
