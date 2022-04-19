@@ -85,10 +85,10 @@ class DatatransController extends Controller
             $results = $service->events->listEvents($calendarId, $optParams);
             $events = $results->getItems();
             
-            $categories = DB::table('datatrans_services')->where('own_id', $id)->whereNotNull('location')->whereNotNull('employee')->get();
-            $services = DB::table('datatrans_services')->where('own_id', $id)->whereNotNull('location')->whereNotNull('employee')->get();
-			$locations = DB::table('datatrans_services')->where('own_id', $id)->whereNotNull('location')->whereNotNull('employee')->groupBy('location')->get();
-            $employees = DB::table('datatrans_services')->where('own_id', $id)->whereNotNull('location')->whereNotNull('employee')->groupBy('employee')->get();
+            $categories = DB::table('datatrans_services')->where('own_id', $id)->whereNotNull('location')->whereNotNull('employee')->whereNotNull('title')->where('title','!=','')->get();
+            $services = DB::table('datatrans_services')->where('own_id', $id)->whereNotNull('location')->whereNotNull('employee')->whereNotNull('title')->where('title','!=','')->get();
+			$locations = DB::table('datatrans_services')->where('own_id', $id)->whereNotNull('location')->whereNotNull('employee')->whereNotNull('title')->where('title','!=','')->groupBy('location')->get();
+            $employees = DB::table('datatrans_services')->where('own_id', $id)->whereNotNull('location')->whereNotNull('employee')->whereNotNull('title')->where('title','!=','')->groupBy('employee')->get();
 
             $orders = array();
             $orders_service_name = DB::table('datatrans_orders')
@@ -114,10 +114,10 @@ class DatatransController extends Controller
             $id = DB::table('users')->where('name', $name)->get('id')[0]->id;
             $events = [];
             
-            $categories = DB::table('datatrans_services')->where('own_id', $id)->whereNotNull('location')->whereNotNull('employee')->get();
-            $services = DB::table('datatrans_services')->where('own_id', $id)->whereNotNull('location')->whereNotNull('employee')->get();
-			$locations = DB::table('datatrans_services')->where('own_id', $id)->groupBy('location')->whereNotNull('location')->whereNotNull('employee')->get();
-            $employees = DB::table('datatrans_services')->where('own_id', $id)->groupBy('employee')->whereNotNull('location')->whereNotNull('employee')->get();
+            $categories = DB::table('datatrans_services')->where('own_id', $id)->whereNotNull('location')->whereNotNull('employee')->whereNotNull('title')->where('title','!=','')->get();
+            $services = DB::table('datatrans_services')->where('own_id', $id)->whereNotNull('location')->whereNotNull('employee')->whereNotNull('title')->where('title','!=','')->get();
+			$locations = DB::table('datatrans_services')->where('own_id', $id)->groupBy('location')->whereNotNull('location')->whereNotNull('employee')->whereNotNull('title')->where('title','!=','')->get();
+            $employees = DB::table('datatrans_services')->where('own_id', $id)->groupBy('employee')->whereNotNull('location')->whereNotNull('employee')->whereNotNull('title')->where('title','!=','')->get();
 
             $orders = array();
             $orders_service_name = DB::table('datatrans_orders')

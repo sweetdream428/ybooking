@@ -15,7 +15,7 @@ class DatatransServiceController extends Controller
     public function index(){
         if(Auth::user()->is_superuser == 1){
 
-            $services = DB::table('datatrans_services')->get();
+            $services = DB::table('datatrans_services')->whereNotNull('title')->where('title','!=','')->get();
             $categories = DB::table('datatrans_categories')->get();
             $locations = DB::table('users')->where('is_superuser', '3')->get();
             $employees = DB::table('users')->where('is_superuser', '4')->get();
@@ -23,7 +23,7 @@ class DatatransServiceController extends Controller
             return view('datatranservice')->with('services', $services)->with('categories', $categories)->with('locations', $locations)->with('employees', $employees);
         }
         else{
-            $services = DB::table('datatrans_services')->where('own_id', Auth::user()->id)->get();
+            $services = DB::table('datatrans_services')->where('own_id', Auth::user()->id)->get()->whereNotNull('title')->where('title','!=','');
             $categories = DB::table('datatrans_categories')->where('own_id', Auth::user()->id)->get();
             $locations = DB::table('users')->where('is_superuser', '3')->where('own_id', Auth::user()->id)->get();
             $employees = DB::table('users')->where('is_superuser', '4')->where('own_id', Auth::user()->id)->get();
@@ -163,13 +163,14 @@ class DatatransServiceController extends Controller
 
     public function selectget($id){
         try{
-            $mondays = DB::table('mondays')->where('service_id', $id)->get();
-            $tuesdays = DB::table('tuesdays')->where('service_id', $id)->get();
-            $wednesdays = DB::table('wednesdays')->where('service_id', $id)->get();
-            $thursdays = DB::table('thursdays')->where('service_id', $id)->get();
-            $fridays = DB::table('fridays')->where('service_id', $id)->get();
-            $saturdays = DB::table('saturdays')->where('service_id', $id)->get();
-            $sundays = DB::table('sundays')->where('service_id', $id)->get();
+            $mondays = DB::table('mondays')->where('service_id', $id)->orderBy('start_time')->get();
+            $tuesdays = DB::table('tuesdays')->where('service_id', $id)->orderBy('start_time')->get();
+            $wednesdays = DB::table('wednesdays')->where('service_id', $id)->orderBy('start_time')->get();
+            $thursdays = DB::table('thursdays')->where('service_id', $id)->orderBy('start_time')->get();
+            $fridays = DB::table('fridays')->where('service_id', $id)->orderBy('start_time')->get();
+            $saturdays = DB::table('saturdays')->where('service_id', $id)->orderBy('start_time')->get();
+            $sundays = DB::table('sundays')->where('service_id', $id)->orderBy('start_time')->get();
+            
             return response()->json(['mondays'=>$mondays, 'tuesdays'=>$tuesdays, 'wednesdays'=>$wednesdays, 'thursdays'=>$thursdays, 'fridays'=>$fridays, 'saturdays'=>$saturdays, 'sundays'=>$sundays]);
         }catch (Exception $e) {
             return response()->json(['success'=>false]);
