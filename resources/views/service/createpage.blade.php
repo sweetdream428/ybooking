@@ -191,442 +191,459 @@
             <div class="content-body">
                 <!-- users list start -->
                 <section class="app-user-list">
-
-                    <!-- list section start -->
-                    <div class="card">
-                        <form class="create-data-submit">
-                            <div class="row mt-2 col-12">
-                                <div class="col-md-4 col-12">
-                                    <div class="form-group">
-                                        <label class="form-label" for="title">Title</label>
-                                        <input type="text" class="form-control dt-full-name" id="title"
-                                            placeholder="Title" name="title" aria-label="title"
-                                            aria-describedby="title" required/>
+                    @foreach ($services as $service)
+                        <!-- list section start -->
+                        <div class="card">
+                            <form class="create-data-submit">
+                                <div class="row mt-2 col-12">
+                                    <div class="col-md-4 col-12">
+                                        <div class="form-group">
+                                            <label class="form-label" for="title">Title</label>
+                                            <input type="text" class="form-control dt-full-name" id="title"
+                                                placeholder="Title" name="title" aria-label="title"
+                                                aria-describedby="title" value="{{$service->title}}" required/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <div class="form-group">
-                                        <label class="form-label" for="category">Category</label>
-                                        <select class="form-control" id="category" name="category" required>
-                                            @foreach ($categories as $category)
-                                                <option value="{{$category->name}}">{{$category->name}}</option>
-                                            @endforeach
-                                        </select>
+                                    <div class="col-md-4 col-12">
+                                        <div class="form-group">
+                                            <label class="form-label" for="category">Category</label>
+                                            <select class="form-control" id="category" name="category" required>
+                                                @foreach ($categories as $category)
+                                                    <option value="{{$category->name}}" {{$service->category == $category->name ? 'selected' : ''}}>{{$category->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <div class="form-group">
-                                        <label class="form-label" for="duration_name">Duration</label>
-                                        <input type="text" name="duration_name" class="duration_name_value" hidden>
-                                        <select name="duration" class="form-control duration_value" required>
-                                            <option value="900">15 min</option>
-                                            <option value="1800">30 min</option>
-                                            <option value="2700">45 min</option>
-                                            <option value="3600">1 hour</option>
-                                            <option value="5400">1 hour 30 min</option>
-                                            <option value="7200">2 hour</option>
-                                            <option value="10800">3 hour</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row col-12">
-                                <div class="col-md-4 col-12">
-                                    <div class="form-group">
-                                        <label class="form-label" for="price">Price</label>
-                                        <input type="number" step="0.01" class="form-control dt-full-name" id="price" placeholder="10.00" name="price" aria-label="price" aria-describedby="price" required/>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <div class="form-group">
-                                        <label class="form-label" for="location">Location</label>
-                                        <select class="form-control" id="location" name="location" required>
-                                            @foreach ($locations as $location)
-                                                <option value="{{$location->name}}">{{$location->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <div class="form-group">
-                                        <label class="form-label" for="employee">Employees</label>
-                                        <select class="form-control" id="employee" name="employee" required>
-                                            @foreach ($employees as $employee)
-                                                <option value="{{$employee->name}}">{{$employee->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                        <section>
-                            <div class="row">
-                                <!-- left menu section -->
-                                <div class="col-md-3 mb-2 mb-md-0">
-                                    <ul class="nav nav-pills flex-column nav-left">
-                                        <!-- monday -->
-                                        <li class="nav-item">
-                                            <a class="nav-link active" id="service-pill-monday" data-toggle="pill" href="#service-vertical-monday" aria-expanded="true">
-                                                <span class="font-weight-bold">Monday</span>
-                                            </a>
-                                        </li>
-                                        <!-- tuesday -->
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="service-pill-tuesday" data-toggle="pill" href="#service-vertical-tuesday" aria-expanded="false">
-                                                <span class="font-weight-bold">Tuesday</span>
-                                            </a>
-                                        </li>
-                                        <!-- wednesday -->
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="service-pill-wednesday" data-toggle="pill" href="#service-vertical-wednesday" aria-expanded="false">
-                                                <span class="font-weight-bold">Wednesday</span>
-                                            </a>
-                                        </li>
-                                        <!-- thursday -->
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="service-pill-thursday" data-toggle="pill" href="#service-vertical-thursday" aria-expanded="false">
-                                                <span class="font-weight-bold">Thursday</span>
-                                            </a>
-                                        </li>
-                                        <!-- friday -->
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="service-pill-friday" data-toggle="pill" href="#service-vertical-friday" aria-expanded="false">
-                                                <span class="font-weight-bold">Friday</span>
-                                            </a>
-                                        </li>
-                                        <!-- saturday -->
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="service-pill-saturday" data-toggle="pill" href="#service-vertical-saturday" aria-expanded="false">
-                                                <span class="font-weight-bold">Saturday</span>
-                                            </a>
-                                        </li>
-                                        <!-- sunday -->
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="service-pill-sunday" data-toggle="pill" href="#service-vertical-sunday" aria-expanded="false">
-                                                <span class="font-weight-bold">Suuday</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <!--/ left menu section -->
-        
-                                <!-- right content section -->
-                                <div class="col-md-9">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="tab-content">
-                                                <!-- monday tab -->
-                                                <div role="tabpanel" class="tab-pane active" id="service-vertical-monday" aria-labelledby="service-pill-general" aria-expanded="true">
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <label for="monday" class="form-label font-weight-bold">Monday:</label>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <label class="switch">
-                                                                <input type="checkbox" class="monday-status">
-                                                                <span class="slider round"></span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row mt-2">
-                                                        <div class="col-6">
-                                                            <button class="btn btn-info add-monday" type="button">Add</button>
-                                                        </div>
-                                                    </div>
-
-                                                    @foreach ($mondays as $monday)
-                                                        <div class="row mt-2 tp-day-cont d-flex align-items-center">
-                                                            <div class="col-md-4 col-12">
-                                                                <button type="button" class="btn btn-danger remove-monday" data-id='live_{{$monday->id}}'>Remove</button>
-                                                                <button type="button" class="btn btn-success save-monday ml-1" data-id='live_{{$monday->id}}'>Saved</button>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <span class="tp-start-time mon-start-time" data-id='live_{{$monday->id}}'>{{$monday->start_time}}</span>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <span class="tp-end-time mon-end-time" data-id='live_{{$monday->id}}'>{{$monday->end_time}}</span>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <input type="checkbox" class="mon_check" data-id='live_{{$monday->id}}' {{$monday->date_check == 1 ? 'checked' : ''}}/>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <input type="text" class="form-control flatpickr-monday" placeholder="YYYY-MM-DD" data-id='live_{{$monday->id}}' value="{{$monday->selectdata}}" style="{{$monday->date_check == 1 ? 'display:inline;' : 'display:none;'}}"/>
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
-                                                    
-                                                </div>
-                                                <!--/ monday tab -->
-        
-                                                <!-- tuesday-->
-                                                <div class="tab-pane fade" id="service-vertical-tuesday" role="tabpanel" aria-labelledby="service-pill-tuesday" aria-expanded="false">
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <label for="tuesday" class="form-label font-weight-bold">Tuesday:</label>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <label class="switch">
-                                                                <input type="checkbox" class="tuesday-status">
-                                                                <span class="slider round"></span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row mt-2">
-                                                        <div class="col-6">
-                                                            <button class="btn btn-info add-tuesday" type="button">Add</button>
-                                                        </div>
-                                                    </div>
-
-                                                    @foreach ($tuesdays as $tuesday)
-                                                        <div class="row mt-2 tp-day-cont d-flex align-items-center">
-                                                            <div class="col-md-4 col-12">
-                                                                <button type="button" class="btn btn-danger remove-tuesday" data-id='live_{{$tuesday->id}}'>Remove</button>
-                                                                <button type="button" class="btn btn-success save-tuesday ml-1" data-id='live_{{$tuesday->id}}'>Saved</button>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <span class="tp-start-time tue-start-time" data-id='live_{{$tuesday->id}}'>{{$tuesday->start_time}}</span>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <span class="tp-end-time tue-end-time" data-id='live_{{$tuesday->id}}'>{{$tuesday->end_time}}</span>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <input type="checkbox" class="tue_check" data-id='live_{{$tuesday->id}}' {{$tuesday->date_check == 1 ? 'checked' : ''}}/>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <input type="text" class="form-control flatpickr-tuesday" placeholder="YYYY-MM-DD" data-id='live_{{$tuesday->id}}' value="{{$tuesday->selectdata}}" style="{{$tuesday->date_check == 1 ? 'display:inline;' : 'display:none;'}}"/>
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
-                                                </div>
-                                                <!--/ tuesday-->
-        
-                                                <!-- wednesday -->
-                                                <div class="tab-pane fade" id="service-vertical-wednesday" role="tabpanel" aria-labelledby="service-pill-wednesday" aria-expanded="false">
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <label for="wednesday" class="form-label font-weight-bold">Wednesday:</label>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <label class="switch">
-                                                                <input type="checkbox" class="wednesday-status">
-                                                                <span class="slider round"></span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row mt-2">
-                                                        <div class="col-6">
-                                                            <button class="btn btn-info add-wednesday" type="button">Add</button>
-                                                        </div>
-                                                    </div>
-
-                                                    @foreach ($wednesdays as $wednesday)
-                                                        <div class="row mt-2 tp-day-cont d-flex align-items-center">
-                                                            <div class="col-md-4 col-12">
-                                                                <button type="button" class="btn btn-danger remove-wednesday" data-id='live_{{$wednesday->id}}'>Remove</button>
-                                                                <button type="button" class="btn btn-success save-wednesday ml-1" data-id='live_{{$wednesday->id}}'>Saved</button>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <span class="tp-start-time wed-start-time" data-id='live_{{$wednesday->id}}'>{{$wednesday->start_time}}</span>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <span class="tp-end-time wed-end-time" data-id='live_{{$wednesday->id}}'>{{$wednesday->end_time}}</span>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <input type="checkbox" class="wed_check" data-id='live_{{$wednesday->id}}' {{$wednesday->date_check == 1 ? 'checked' : ''}}/>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <input type="text" class="form-control flatpickr-wednesday" placeholder="YYYY-MM-DD" data-id='live_{{$wednesday->id}}' value="{{$wednesday->selectdata}}" style="{{$wednesday->date_check == 1 ? 'display:inline;' : 'display:none;'}}"/>
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
-                                                </div>
-                                                <!--/ wednesday -->
-        
-                                                <!-- thursday -->
-                                                <div class="tab-pane fade" id="service-vertical-thursday" role="tabpanel" aria-labelledby="service-pill-thursday" aria-expanded="false">
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <label for="thursday" class="form-label font-weight-bold">Thursday:</label>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <label class="switch">
-                                                                <input type="checkbox" class="thursday-status">
-                                                                <span class="slider round"></span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row mt-2">
-                                                        <div class="col-6">
-                                                            <button class="btn btn-info add-thursday" type="button">Add</button>
-                                                        </div>
-                                                    </div>
-
-                                                    @foreach ($thursdays as $thursday)
-                                                        <div class="row mt-2 tp-day-cont d-flex align-items-center">
-                                                            <div class="col-md-4 col-12">
-                                                                <button type="button" class="btn btn-danger remove-thursday" data-id='live_{{$thursday->id}}'>Remove</button>
-                                                                <button type="button" class="btn btn-success save-thursday ml-1" data-id='live_{{$thursday->id}}'>Saved</button>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <span class="tp-start-time thu-start-time" data-id='live_{{$thursday->id}}'>{{$thursday->start_time}}</span>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <span class="tp-end-time thu-end-time" data-id='live_{{$thursday->id}}'>{{$thursday->end_time}}</span>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <input type="checkbox" class="thu_check" data-id='live_{{$thursday->id}}' {{$thursday->date_check == 1 ? 'checked' : ''}}/>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <input type="text" class="form-control flatpickr-thursday" placeholder="YYYY-MM-DD" data-id='live_{{$thursday->id}}' value="{{$thursday->selectdata}}" style="{{$thursday->date_check == 1 ? 'display:inline;' : 'display:none;'}}"/>
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
-                                                </div>
-                                                <!--/ thursday -->
-        
-                                                <!-- friday -->
-                                                <div class="tab-pane fade" id="service-vertical-friday" role="tabpanel" aria-labelledby="service-pill-friday" aria-expanded="false">
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <label for="friday" class="form-label font-weight-bold">Friday:</label>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <label class="switch">
-                                                                <input type="checkbox" class="friday-status">
-                                                                <span class="slider round"></span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row mt-2">
-                                                        <div class="col-6">
-                                                            <button class="btn btn-info add-friday" type="button">Add</button>
-                                                        </div>
-                                                    </div>
-
-                                                    @foreach ($fridays as $friday)
-                                                        <div class="row mt-2 tp-day-cont d-flex align-items-center">
-                                                            <div class="col-md-4 col-12">
-                                                                <button type="button" class="btn btn-danger remove-friday" data-id='live_{{$friday->id}}'>Remove</button>
-                                                                <button type="button" class="btn btn-success save-friday ml-1" data-id='live_{{$friday->id}}'>Saved</button>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <span class="tp-start-time fri-start-time" data-id='live_{{$friday->id}}'>{{$friday->start_time}}</span>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <span class="tp-end-time fri-end-time" data-id='live_{{$friday->id}}'>{{$friday->end_time}}</span>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <input type="checkbox" class="fri_check" data-id='live_{{$friday->id}}' {{$friday->date_check == 1 ? 'checked' : ''}}/>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <input type="text" class="form-control flatpickr-friday" placeholder="YYYY-MM-DD" data-id='live_{{$friday->id}}' value="{{$friday->selectdata}}" style="{{$friday->date_check == 1 ? 'display:inline;' : 'display:none;'}}"/>
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
-                                                </div>
-                                                <!--/ friday -->
-
-                                                <!-- saturday -->
-                                                <div class="tab-pane fade" id="service-vertical-saturday" role="tabpanel" aria-labelledby="service-pill-saturday" aria-expanded="false">
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <label for="saturday" class="form-label font-weight-bold">Saturday:</label>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <label class="switch">
-                                                                <input type="checkbox" class="saturday-status">
-                                                                <span class="slider round"></span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row mt-2">
-                                                        <div class="col-6">
-                                                            <button class="btn btn-info add-saturday" type="button">Add</button>
-                                                        </div>
-                                                    </div>
-
-                                                    @foreach ($saturdays as $saturday)
-                                                        <div class="row mt-2 tp-day-cont d-flex align-items-center">
-                                                            <div class="col-md-4 col-12">
-                                                                <button type="button" class="btn btn-danger remove-saturday" data-id='live_{{$saturday->id}}'>Remove</button>
-                                                                <button type="button" class="btn btn-success save-saturday ml-1" data-id='live_{{$saturday->id}}'>Saved</button>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <span class="tp-start-time sat-start-time" data-id='live_{{$saturday->id}}'>{{$saturday->start_time}}</span>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <span class="tp-end-time sat-end-time" data-id='live_{{$saturday->id}}'>{{$saturday->end_time}}</span>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <input type="checkbox" class="sat_check" data-id='live_{{$saturday->id}}' {{$saturday->date_check == 1 ? 'checked' : ''}}/>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <input type="text" class="form-control flatpickr-saturday" placeholder="YYYY-MM-DD" data-id='live_{{$saturday->id}}' value="{{$saturday->selectdata}}" style="{{$saturday->date_check == 1 ? 'display:inline;' : 'display:none;'}}"/>
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
-                                                </div>
-                                                <!--/ saturday -->
-
-                                                <!-- sunday -->
-                                                <div class="tab-pane fade" id="service-vertical-sunday" role="tabpanel" aria-labelledby="service-pill-sunday" aria-expanded="false">
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <label for="sunday" class="form-label font-weight-bold">Sunday:</label>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <label class="switch">
-                                                                <input type="checkbox" class="sunday-status">
-                                                                <span class="slider round"></span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row mt-2">
-                                                        <div class="col-6">
-                                                            <button class="btn btn-info add-sunday" type="button">Add</button>
-                                                        </div>
-                                                    </div>
-
-                                                    @foreach ($sundays as $sunday)
-                                                        <div class="row mt-2 tp-day-cont d-flex align-items-center">
-                                                            <div class="col-md-4 col-12">
-                                                                <button type="button" class="btn btn-danger remove-sunday" data-id='live_{{$sunday->id}}'>Remove</button>
-                                                                <button type="button" class="btn btn-success save-sunday ml-1" data-id='live_{{$sunday->id}}'>Saved</button>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <span class="tp-start-time sun-start-time" data-id='live_{{$sunday->id}}'>{{$sunday->start_time}}</span>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <span class="tp-end-time sun-end-time" data-id='live_{{$sunday->id}}'>{{$sunday->end_time}}</span>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <input type="checkbox" class="sun_check" data-id='live_{{$sunday->id}}' {{$sunday->date_check == 1 ? 'checked' : ''}}/>
-                                                            </div>
-                                                            <div class="col-md-2 col-6">
-                                                                <input type="text" class="form-control flatpickr-sunday" placeholder="YYYY-MM-DD" data-id='live_{{$sunday->id}}' value="{{$sunday->selectdata}}" style="{{$sunday->date_check == 1 ? 'display:inline;' : 'display:none;'}}"/>
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
-                                                </div>
-                                                <!--/ sunday -->
-                                            </div>
+                                    <div class="col-md-4 col-12">
+                                        <div class="form-group">
+                                            <label class="form-label" for="duration_name">Duration</label>
+                                            <input type="text" name="duration_name" class="duration_name_value" hidden value="{{$service->duration_name}}">
+                                            <select name="duration" id="duration" class="form-control duration_value" required>
+                                                <option value="900" {{$service->duration == '900' ? 'selected' : ''}}>15 min</option>
+                                                <option value="1800" {{$service->duration == '1800' ? 'selected' : ''}}>30 min</option>
+                                                <option value="2700" {{$service->duration == '2700' ? 'selected' : ''}}>45 min</option>
+                                                <option value="3600" {{$service->duration == '3600' ? 'selected' : ''}}>1 hour</option>
+                                                <option value="5400" {{$service->duration == '5400' ? 'selected' : ''}}>1 hour 30 min</option>
+                                                <option value="7200" {{$service->duration == '7200' ? 'selected' : ''}}>2 hour</option>
+                                                <option value="10800" {{$service->duration == '10800' ? 'selected' : ''}}>3 hour</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                                <!--/ right content section -->
-                            </div>
-                        </section>
-                    </div>
-                   
-                <!-- users list ends -->
+                                <div class="row col-12 mt-2">
+                                    <div class="col-md-4 col-12">
+                                        <div class="form-group">
+                                            <label class="form-label" for="price">Price</label>
+                                            <input type="number" step="0.01" class="form-control dt-full-name" id="price" placeholder="10.00" name="price" aria-label="price" aria-describedby="price" value="{{$service->price}}" required/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-12">
+                                        <div class="form-group">
+                                            <label class="form-label" for="location">Location</label>
+                                            <select class="form-control" id="location" name="location" required>
+                                                @foreach ($locations as $location)
+                                                    <option value="{{$location->name}}" {{$service->location == $location->name ? 'selected' : ''}}>{{$location->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-12">
+                                        <div class="form-group">
+                                            <label class="form-label" for="employee">Employees</label>
+                                            <select class="form-control" id="employee" name="employee" required>
+                                                @foreach ($employees as $employee)
+                                                    <option value="{{$employee->name}}" {{$service->employee == $employee->name ? 'selected' : ''}}>{{$employee->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2 col-12">
+                                    <div class="col-md-4 col-12">
+                                        <div class="form-group">
+                                            <label class="form-label" for="allow">Allow</label>
+                                            <input type="number" class="form-control" id="allow"
+                                                placeholder="" name="allow" aria-label="allow"
+                                                aria-describedby="allow" value="{{$service->allow}}" required/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <section>
+                                <div class="row">
+                                    <!-- left menu section -->
+                                    <div class="col-md-3 mb-2 mb-md-0">
+                                        <ul class="nav nav-pills flex-column nav-left">
+                                            <!-- monday -->
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="service-pill-monday" data-toggle="pill" href="#service-vertical-monday" aria-expanded="true">
+                                                    <span class="font-weight-bold">Monday</span>
+                                                </a>
+                                            </li>
+                                            <!-- tuesday -->
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="service-pill-tuesday" data-toggle="pill" href="#service-vertical-tuesday" aria-expanded="false">
+                                                    <span class="font-weight-bold">Tuesday</span>
+                                                </a>
+                                            </li>
+                                            <!-- wednesday -->
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="service-pill-wednesday" data-toggle="pill" href="#service-vertical-wednesday" aria-expanded="false">
+                                                    <span class="font-weight-bold">Wednesday</span>
+                                                </a>
+                                            </li>
+                                            <!-- thursday -->
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="service-pill-thursday" data-toggle="pill" href="#service-vertical-thursday" aria-expanded="false">
+                                                    <span class="font-weight-bold">Thursday</span>
+                                                </a>
+                                            </li>
+                                            <!-- friday -->
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="service-pill-friday" data-toggle="pill" href="#service-vertical-friday" aria-expanded="false">
+                                                    <span class="font-weight-bold">Friday</span>
+                                                </a>
+                                            </li>
+                                            <!-- saturday -->
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="service-pill-saturday" data-toggle="pill" href="#service-vertical-saturday" aria-expanded="false">
+                                                    <span class="font-weight-bold">Saturday</span>
+                                                </a>
+                                            </li>
+                                            <!-- sunday -->
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="service-pill-sunday" data-toggle="pill" href="#service-vertical-sunday" aria-expanded="false">
+                                                    <span class="font-weight-bold">Sunday</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!--/ left menu section -->
+            
+                                    <!-- right content section -->
+                                    <div class="col-md-9">
+                                        
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="tab-content">
+                                                    <!-- monday tab -->
+                                                    <div role="tabpanel" class="tab-pane active" id="service-vertical-monday" aria-labelledby="service-pill-general" aria-expanded="true">
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <label for="monday" class="form-label font-weight-bold">Monday:</label>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label class="switch">
+                                                                    <input type="checkbox" class="monday-status" {{$service->mon == 1 ? 'checked' : ''}}>
+                                                                    <span class="slider round"></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
 
+                                                        <div class="row mt-2">
+                                                            <div class="col-6">
+                                                                <button class="btn btn-info add-monday" type="button">Add</button>
+                                                            </div>
+                                                        </div>
+
+                                                        @foreach ($mondays as $monday)
+                                                            <div class="row mt-2 tp-day-cont d-flex align-items-center">
+                                                                <div class="col-md-4 col-12">
+                                                                    <button type="button" class="btn btn-danger remove-monday" data-id='live_{{$monday->id}}'>Remove</button>
+                                                                    <button type="button" class="btn btn-success save-monday ml-1" data-id='live_{{$monday->id}}'>Saved</button>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <span class="tp-start-time mon-start-time" data-id='live_{{$monday->id}}'>{{$monday->start_time}}</span>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <span class="tp-end-time mon-end-time" data-id='live_{{$monday->id}}'>{{$monday->end_time}}</span>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <input type="checkbox" class="mon_check" data-id='live_{{$monday->id}}' {{$monday->date_check == 1 ? 'checked' : ''}}/>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <input type="text" class="form-control flatpickr-monday" placeholder="YYYY-MM-DD" data-id='live_{{$monday->id}}' value="{{$monday->selectdata}}" style="{{$monday->date_check == 1 ? 'display:inline;' : 'display:none;'}}"/>
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+                                                        
+                                                    </div>
+                                                    <!--/ monday tab -->
+            
+                                                    <!-- tuesday-->
+                                                    <div class="tab-pane fade" id="service-vertical-tuesday" role="tabpanel" aria-labelledby="service-pill-tuesday" aria-expanded="false">
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <label for="tuesday" class="form-label font-weight-bold">Tuesday:</label>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label class="switch">
+                                                                    <input type="checkbox" class="tuesday-status" {{$service->tue == 1 ? 'checked' : ''}}>
+                                                                    <span class="slider round"></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row mt-2">
+                                                            <div class="col-6">
+                                                                <button class="btn btn-info add-tuesday" type="button">Add</button>
+                                                            </div>
+                                                        </div>
+
+                                                        @foreach ($tuesdays as $tuesday)
+                                                            <div class="row mt-2 tp-day-cont d-flex align-items-center">
+                                                                <div class="col-md-4 col-12">
+                                                                    <button type="button" class="btn btn-danger remove-tuesday" data-id='live_{{$tuesday->id}}'>Remove</button>
+                                                                    <button type="button" class="btn btn-success save-tuesday ml-1" data-id='live_{{$tuesday->id}}'>Saved</button>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <span class="tp-start-time tue-start-time" data-id='live_{{$tuesday->id}}'>{{$tuesday->start_time}}</span>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <span class="tp-end-time tue-end-time" data-id='live_{{$tuesday->id}}'>{{$tuesday->end_time}}</span>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <input type="checkbox" class="tue_check" data-id='live_{{$tuesday->id}}' {{$tuesday->date_check == 1 ? 'checked' : ''}}/>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <input type="text" class="form-control flatpickr-tuesday" placeholder="YYYY-MM-DD" data-id='live_{{$tuesday->id}}' value="{{$tuesday->selectdata}}" style="{{$tuesday->date_check == 1 ? 'display:inline;' : 'display:none;'}}"/>
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                    <!--/ tuesday-->
+            
+                                                    <!-- wednesday -->
+                                                    <div class="tab-pane fade" id="service-vertical-wednesday" role="tabpanel" aria-labelledby="service-pill-wednesday" aria-expanded="false">
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <label for="wednesday" class="form-label font-weight-bold">Wednesday:</label>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label class="switch">
+                                                                    <input type="checkbox" class="wednesday-status" {{$service->wed == 1 ? 'checked' : ''}}>
+                                                                    <span class="slider round"></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row mt-2">
+                                                            <div class="col-6">
+                                                                <button class="btn btn-info add-wednesday" type="button">Add</button>
+                                                            </div>
+                                                        </div>
+
+                                                        @foreach ($wednesdays as $wednesday)
+                                                            <div class="row mt-2 tp-day-cont d-flex align-items-center">
+                                                                <div class="col-md-4 col-12">
+                                                                    <button type="button" class="btn btn-danger remove-wednesday" data-id='live_{{$wednesday->id}}'>Remove</button>
+                                                                    <button type="button" class="btn btn-success save-wednesday ml-1" data-id='live_{{$wednesday->id}}'>Saved</button>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <span class="tp-start-time wed-start-time" data-id='live_{{$wednesday->id}}'>{{$wednesday->start_time}}</span>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <span class="tp-end-time wed-end-time" data-id='live_{{$wednesday->id}}'>{{$wednesday->end_time}}</span>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <input type="checkbox" class="wed_check" data-id='live_{{$wednesday->id}}' {{$wednesday->date_check == 1 ? 'checked' : ''}}/>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <input type="text" class="form-control flatpickr-wednesday" placeholder="YYYY-MM-DD" data-id='live_{{$wednesday->id}}' value="{{$wednesday->selectdata}}" style="{{$wednesday->date_check == 1 ? 'display:inline;' : 'display:none;'}}"/>
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                    <!--/ wednesday -->
+            
+                                                    <!-- thursday -->
+                                                    <div class="tab-pane fade" id="service-vertical-thursday" role="tabpanel" aria-labelledby="service-pill-thursday" aria-expanded="false">
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <label for="thursday" class="form-label font-weight-bold">Thursday:</label>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label class="switch">
+                                                                    <input type="checkbox" class="thursday-status" {{$service->thu == 1 ? 'checked' : ''}}>
+                                                                    <span class="slider round"></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row mt-2">
+                                                            <div class="col-6">
+                                                                <button class="btn btn-info add-thursday" type="button">Add</button>
+                                                            </div>
+                                                        </div>
+
+                                                        @foreach ($thursdays as $thursday)
+                                                            <div class="row mt-2 tp-day-cont d-flex align-items-center">
+                                                                <div class="col-md-4 col-12">
+                                                                    <button type="button" class="btn btn-danger remove-thursday" data-id='live_{{$thursday->id}}'>Remove</button>
+                                                                    <button type="button" class="btn btn-success save-thursday ml-1" data-id='live_{{$thursday->id}}'>Saved</button>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <span class="tp-start-time thu-start-time" data-id='live_{{$thursday->id}}'>{{$thursday->start_time}}</span>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <span class="tp-end-time thu-end-time" data-id='live_{{$thursday->id}}'>{{$thursday->end_time}}</span>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <input type="checkbox" class="thu_check" data-id='live_{{$thursday->id}}' {{$thursday->date_check == 1 ? 'checked' : ''}}/>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <input type="text" class="form-control flatpickr-thursday" placeholder="YYYY-MM-DD" data-id='live_{{$thursday->id}}' value="{{$thursday->selectdata}}" style="{{$thursday->date_check == 1 ? 'display:inline;' : 'display:none;'}}"/>
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                    <!--/ thursday -->
+            
+                                                    <!-- friday -->
+                                                    <div class="tab-pane fade" id="service-vertical-friday" role="tabpanel" aria-labelledby="service-pill-friday" aria-expanded="false">
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <label for="friday" class="form-label font-weight-bold">Friday:</label>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label class="switch">
+                                                                    <input type="checkbox" class="friday-status" {{$service->fri == 1 ? 'checked' : ''}}>
+                                                                    <span class="slider round"></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row mt-2">
+                                                            <div class="col-6">
+                                                                <button class="btn btn-info add-friday" type="button">Add</button>
+                                                            </div>
+                                                        </div>
+
+                                                        @foreach ($fridays as $friday)
+                                                            <div class="row mt-2 tp-day-cont d-flex align-items-center">
+                                                                <div class="col-md-4 col-12">
+                                                                    <button type="button" class="btn btn-danger remove-friday" data-id='live_{{$friday->id}}'>Remove</button>
+                                                                    <button type="button" class="btn btn-success save-friday ml-1" data-id='live_{{$friday->id}}'>Saved</button>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <span class="tp-start-time fri-start-time" data-id='live_{{$friday->id}}'>{{$friday->start_time}}</span>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <span class="tp-end-time fri-end-time" data-id='live_{{$friday->id}}'>{{$friday->end_time}}</span>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <input type="checkbox" class="fri_check" data-id='live_{{$friday->id}}' {{$friday->date_check == 1 ? 'checked' : ''}}/>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <input type="text" class="form-control flatpickr-friday" placeholder="YYYY-MM-DD" data-id='live_{{$friday->id}}' value="{{$friday->selectdata}}" style="{{$friday->date_check == 1 ? 'display:inline;' : 'display:none;'}}"/>
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                    <!--/ friday -->
+
+                                                    <!-- saturday -->
+                                                    <div class="tab-pane fade" id="service-vertical-saturday" role="tabpanel" aria-labelledby="service-pill-saturday" aria-expanded="false">
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <label for="saturday" class="form-label font-weight-bold">Saturday:</label>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label class="switch">
+                                                                    <input type="checkbox" class="saturday-status" {{$service->sat == 1 ? 'checked' : ''}}>
+                                                                    <span class="slider round"></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row mt-2">
+                                                            <div class="col-6">
+                                                                <button class="btn btn-info add-saturday" type="button">Add</button>
+                                                            </div>
+                                                        </div>
+
+                                                        @foreach ($saturdays as $saturday)
+                                                            <div class="row mt-2 tp-day-cont d-flex align-items-center">
+                                                                <div class="col-md-4 col-12">
+                                                                    <button type="button" class="btn btn-danger remove-saturday" data-id='live_{{$saturday->id}}'>Remove</button>
+                                                                    <button type="button" class="btn btn-success save-saturday ml-1" data-id='live_{{$saturday->id}}'>Saved</button>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <span class="tp-start-time sat-start-time" data-id='live_{{$saturday->id}}'>{{$saturday->start_time}}</span>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <span class="tp-end-time sat-end-time" data-id='live_{{$saturday->id}}'>{{$saturday->end_time}}</span>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <input type="checkbox" class="sat_check" data-id='live_{{$saturday->id}}' {{$saturday->date_check == 1 ? 'checked' : ''}}/>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <input type="text" class="form-control flatpickr-saturday" placeholder="YYYY-MM-DD" data-id='live_{{$saturday->id}}' value="{{$saturday->selectdata}}" style="{{$saturday->date_check == 1 ? 'display:inline;' : 'display:none;'}}"/>
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                    <!--/ saturday -->
+
+                                                    <!-- sunday -->
+                                                    <div class="tab-pane fade" id="service-vertical-sunday" role="tabpanel" aria-labelledby="service-pill-sunday" aria-expanded="false">
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <label for="sunday" class="form-label font-weight-bold">Sunday:</label>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label class="switch">
+                                                                    <input type="checkbox" class="sunday-status" {{$service->sun == 1 ? 'checked' : ''}}>
+                                                                    <span class="slider round"></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row mt-2">
+                                                            <div class="col-6">
+                                                                <button class="btn btn-info add-sunday" type="button">Add</button>
+                                                            </div>
+                                                        </div>
+
+                                                        @foreach ($sundays as $sunday)
+                                                            <div class="row mt-2 tp-day-cont d-flex align-items-center">
+                                                                <div class="col-md-4 col-12">
+                                                                    <button type="button" class="btn btn-danger remove-sunday" data-id='live_{{$sunday->id}}'>Remove</button>
+                                                                    <button type="button" class="btn btn-success save-sunday ml-1" data-id='live_{{$sunday->id}}'>Saved</button>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <span class="tp-start-time sun-start-time" data-id='live_{{$sunday->id}}'>{{$sunday->start_time}}</span>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <span class="tp-end-time sun-end-time" data-id='live_{{$sunday->id}}'>{{$sunday->end_time}}</span>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <input type="checkbox" class="sun_check" data-id='live_{{$sunday->id}}' {{$sunday->date_check == 1 ? 'checked' : ''}}/>
+                                                                </div>
+                                                                <div class="col-md-2 col-6">
+                                                                    <input type="text" class="form-control flatpickr-sunday" placeholder="YYYY-MM-DD" data-id='live_{{$sunday->id}}' value="{{$sunday->selectdata}}" style="{{$sunday->date_check == 1 ? 'display:inline;' : 'display:none;'}}"/>
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                    <!--/ sunday -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <!--/ right content section -->
+
+                                    <div class="col-12 d-flex justify-content-between">
+                                        <button type="button" class="btn btn-danger btn-service-cancel">Cancel</button>
+                                        <button type="button" class="btn btn-info btn-service-save">Save</button>
+                                    </div>
+
+                                </div>
+                            </section>
+                        </div>
+                        <!-- users list ends -->
+                    @endforeach
             </div>
         </div>
     </div>
@@ -640,6 +657,54 @@
     <!-- END: Footer-->
 
     <script>
+        var duration_name = $('.duration_name_value:text');
+        var duration = $('.duration_value option:selected').text();
+        
+        duration_name.val(duration);
+        
+        $('.duration_value').change(function(e){
+            duration = $('.duration_value option:selected').text();
+            duration_name.val(duration);
+        });
+
+        $('.btn-service-save').on('click', function(e){
+            var titlevalid = $('#title').valid();
+            $('#duration').valid();
+            $('#price').valid();
+            $('#employee').valid();
+            var allowvalid = $('#allow').valid();
+
+            var title = $('#title').val();
+            var category = $('#category').val();
+            var duration_value = $('.duration_name_value').val();
+            var duration = $('#duration').val();
+            var price = $('#price').val();
+            var location = $('#location').val();
+            var employee = $('#employee').val();
+            var allow = $('#allow').val();
+
+            console.log('title', title, 'category', category, 'duration_value', duration_value, 'duration', duration, 'price', price, 'location', location, 'employee', employee, 'allow', allow );
+
+            var serviceurl = '/datatrans-service-update';
+            if(titlevalid && allowvalid){
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'post',
+                    url: serviceurl,
+                    data: {  },
+                    success: function (data) {
+                        if (data['success']) {
+                        }
+                        else {
+                            console.log('error');
+                        }
+                    }
+                });
+            }
+            
+        });
 
         $(function(){
             var mon = 0, tue = 0, wed = 0, thu = 0, fri = 0, sat = 0, sun = 0;
@@ -1027,25 +1092,57 @@
             e.preventDefault();
             var status = $(this).is(':checked')?1:0;
             var week = 'mon';
-            var id = '{{$createId}}'
-            var changeurl = '/datatrans-week-status'
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: 'post',
-                url: changeurl,
-                data: { id : id, week : week, status : status },
-                success: function (data) {
-                    if (data['success']) {
-                    }
-                    else {
-                        console.log('error');
-                    }
-                }
-            
-            });
-        })
+            var id = '{{$createId}}';
+            StatusFun(id, week, status);
+        });
+
+        $('.tuesday-status').on('change', function(e){
+            e.preventDefault();
+            var status = $(this).is(':checked')?1:0;
+            var week = 'tue';
+            var id = '{{$createId}}';
+            StatusFun(id, week, status);
+        });
+
+        $('.wednesday-status').on('change', function(e){
+            e.preventDefault();
+            var status = $(this).is(':checked')?1:0;
+            var week = 'wed';
+            var id = '{{$createId}}';
+            StatusFun(id, week, status);
+        });
+
+        $('.thursday-status').on('change', function(e){
+            e.preventDefault();
+            var status = $(this).is(':checked')?1:0;
+            var week = 'thu';
+            var id = '{{$createId}}';
+            StatusFun(id, week, status);
+        });
+
+        $('.friday-status').on('change', function(e){
+            e.preventDefault();
+            var status = $(this).is(':checked')?1:0;
+            var week = 'fri';
+            var id = '{{$createId}}';
+            StatusFun(id, week, status);
+        });
+
+        $('.saturday-status').on('change', function(e){
+            e.preventDefault();
+            var status = $(this).is(':checked')?1:0;
+            var week = 'sat';
+            var id = '{{$createId}}';
+            StatusFun(id, week, status);
+        });
+
+        $('.sunday-status').on('change', function(e){
+            e.preventDefault();
+            var status = $(this).is(':checked')?1:0;
+            var week = 'sun';
+            var id = '{{$createId}}';
+            StatusFun(id, week, status);
+        });
               
         $(document).ready(function(){
             
@@ -1330,6 +1427,27 @@
                         console.log('error');
                     }
                 }
+            });
+        }
+
+        function StatusFun(id, week, status){
+            var changeurl = '/datatrans-week-status'
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'post',
+                url: changeurl,
+                data: { id : id, week : week, status : status },
+                success: function (data) {
+                    if (data['success']) {
+                        
+                    }
+                    else {
+                        console.log('error');
+                    }
+                }
+            
             });
         }
    

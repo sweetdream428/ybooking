@@ -53,7 +53,7 @@ Route::get('/', function () {
 
         Route::get('datatrans-service-list', [DatatransServiceController::class, 'index'])->name('datatrans.service.index');	
         Route::post('datatrans-service-list', [DatatransServiceController::class, 'create'])->name('datatrans.service.create');
-        Route::post('datatrans-service-update/{id}', [DatatransServiceController::class, 'update'])->name('datatrans.service.update');
+        Route::post('datatrans-service-update', [DatatransServiceController::class, 'update'])->name('datatrans.service.update');
         Route::get('datatrans-service-delete/{id}', [DatatransServiceController::class, 'delete'])->name('datatrans.service.delete');
 
         Route::get('datatrans-service-list/{id}', [DatatransServiceController::class, 'createpage'])->name('datatrans.service.createpage');

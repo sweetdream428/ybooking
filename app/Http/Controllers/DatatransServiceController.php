@@ -31,11 +31,6 @@ class DatatransServiceController extends Controller
         }  
     }
 
-    // public function createpage(){
-    //     $categories = DB::table('datatrans_categories')->get();
-    //     return view('service/createpage')->with('categories', $categories);
-    // }
-
     public function create(Request $request){
         
         try{
@@ -128,12 +123,12 @@ class DatatransServiceController extends Controller
 
     public function weekstatus(Request $request){
         try{
-            DB::table('datatrans-services')->where('id', $request->id)->update([
+            DB::table('datatrans_services')->where('id', $request->id)->update([
                 $request->week => $request->status,
             ]);
             return response()->json(['success'=>true]);
         }catch (Exception $e) {
-            return response()->json(['success'=>false]);
+            return response()->json(['success'=>$e]);
         }
     }
 
@@ -141,23 +136,14 @@ class DatatransServiceController extends Controller
         
         try{
             DB::table('datatrans_services')->where('id', $id)->update([
-                'title' => request('utitle'),
-				'category' => request('ucategory'),
-                'employee' => request('uemployee'),
-                'location' => request('ulocation'),
-                'duration' => request('uduration'),
-                'duration_name' => request('uduration_name'),
-                'price' => request('uprice'),
-                'start_time' => request('ustart_time'),
-                'end_time' => request('uend_time'),
-                'sun' => request('usun')?1:0,
-                'mon' => request('umon')?1:0,
-                'tue' => request('utue')?1:0,
-                'wed' => request('uwed')?1:0,
-                'thu' => request('uthu')?1:0,
-                'fri' => request('ufri')?1:0,
-                'sat' => request('usat')?1:0,
-                'allow' => request('uallow')
+                'title' => request('title'),
+				'category' => request('category'),
+                'employee' => request('employee'),
+                'location' => request('location'),
+                'duration' => request('duration'),
+                'duration_name' => request('duration_name'),
+                'price' => request('price'),
+                'allow' => request('allow')
             ]);
             return response()->json(['success'=>true]);
         }catch (Exception $e) {

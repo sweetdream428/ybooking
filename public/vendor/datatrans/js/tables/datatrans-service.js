@@ -108,7 +108,6 @@ $(function() {
                 'price': {
                     required: true
                 }
-                
             }
         });
 
