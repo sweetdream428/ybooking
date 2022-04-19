@@ -163,7 +163,7 @@
         background: var(--main-color);
         border-color: var(--main-color);
     }
-    .flatpickr-monday{
+    .flatpickr-monday, .flatpickr-tuesday, .flatpickr-wednesday, .flatpickr-thursday, .flatpickr-friday, .flatpickr-saturday, .flatpickr-sunday{
         display: none;
     }
 
@@ -655,8 +655,8 @@
                 $('#service-vertical-wednesday').append('<div class="row mt-2 tp-day-cont d-flex align-items-center"><div class="col-md-4 col-12"><button type="button" class="btn btn-danger remove-wednesday" data-id='+ wed +'>Remove</button><button type="button" class="btn btn-success save-wednesday ml-2" data-id='+ wed +'>Save</button></div><div class="col-md-2 col-6"><span class="tp-start-time wed-start-time" data-id='+ wed +'>00:00</span></div><div class="col-md-2 col-6"><span class="tp-end-time wed-end-time" data-id='+ wed +'>00:00</span></div><div class="col-md-2 col-6"><input type="checkbox" class="wed_check" data-id='+ wed +' /></div><div class="col-md-2 col-6"><input type="text" class="form-control flatpickr-wednesday" placeholder="YYYY-MM-DD" data-id='+ wed +' /></div></div>');
                 wed = wed + 1;
             })
-            $('.add-thusday').on('click', function(e){
-                $('#service-vertical-thusday').append('<div class="row mt-2 tp-day-cont d-flex align-items-center"><div class="col-md-4 col-12"><button type="button" class="btn btn-danger remove-thusday" data-id='+ thu +'>Remove</button><button type="button" class="btn btn-success save-thusday ml-2" data-id='+ thu +'>Save</button></div><div class="col-md-2 col-6"><span class="tp-start-time thu-start-time" data-id='+ thu +'>00:00</span></div><div class="col-md-2 col-6"><span class="tp-end-time thu-end-time" data-id='+ thu +'>00:00</span></div><div class="col-md-2 col-6"><input type="checkbox" class="thu_check" data-id='+ thu +' /></div><div class="col-md-2 col-6"><input type="text" class="form-control flatpickr-thusday" placeholder="YYYY-MM-DD" data-id='+ thu +' /></div></div>');
+            $('.add-thursday').on('click', function(e){
+                $('#service-vertical-thursday').append('<div class="row mt-2 tp-day-cont d-flex align-items-center"><div class="col-md-4 col-12"><button type="button" class="btn btn-danger remove-thursday" data-id='+ thu +'>Remove</button><button type="button" class="btn btn-success save-thursday ml-2" data-id='+ thu +'>Save</button></div><div class="col-md-2 col-6"><span class="tp-start-time thu-start-time" data-id='+ thu +'>00:00</span></div><div class="col-md-2 col-6"><span class="tp-end-time thu-end-time" data-id='+ thu +'>00:00</span></div><div class="col-md-2 col-6"><input type="checkbox" class="thu_check" data-id='+ thu +' /></div><div class="col-md-2 col-6"><input type="text" class="form-control flatpickr-thursday" placeholder="YYYY-MM-DD" data-id='+ thu +' /></div></div>');
                 thu = thu + 1;
             })
             $('.add-friday').on('click', function(e){
@@ -674,7 +674,7 @@
         });
 
         $(document).on('click', '.mon_check', function(){
-            var id = $(this).data('id');
+            var id = $(this).attr('data-id').toString();
             $(this).is(':checked') ? $('.flatpickr-monday[data-id=' + id + ']').css('display', 'inline') : $('.flatpickr-monday[data-id=' + id + ']').css('display', 'none');
 
             $('.flatpickr-monday[data-id=' + id + ']').flatpickr({
@@ -691,7 +691,7 @@
         });
 
         $(document).on('click', '.tue_check', function(){
-            var id = $(this).data('id');
+            var id = $(this).attr('data-id').toString();
             $(this).is(':checked') ? $('.flatpickr-tuesday[data-id=' + id + ']').css('display', 'inline') : $('.flatpickr-tuesday[data-id=' + id + ']').css('display', 'none');
 
             $('.flatpickr-tuesday[data-id=' + id + ']').flatpickr({
@@ -708,7 +708,7 @@
         });
 
         $(document).on('click', '.wed_check', function(){
-            var id = $(this).data('id');
+            var id = $(this).attr('data-id').toString();
             $(this).is(':checked') ? $('.flatpickr-wednesday[data-id=' + id + ']').css('display', 'inline') : $('.flatpickr-wednesday[data-id=' + id + ']').css('display', 'none');
 
             $('.flatpickr-wednesday[data-id=' + id + ']').flatpickr({
@@ -725,7 +725,7 @@
         });
 
         $(document).on('click', '.thu_check', function(){
-            var id = $(this).data('id');
+            var id = $(this).attr('data-id').toString();
             $(this).is(':checked') ? $('.flatpickr-thursday[data-id=' + id + ']').css('display', 'inline') : $('.flatpickr-thursday[data-id=' + id + ']').css('display', 'none');
 
             $('.flatpickr-thursday[data-id=' + id + ']').flatpickr({
@@ -742,7 +742,7 @@
         });
 
         $(document).on('click', '.fri_check', function(){
-            var id = $(this).data('id');
+            var id = $(this).attr('data-id').toString();
             $(this).is(':checked') ? $('.flatpickr-friday[data-id=' + id + ']').css('display', 'inline') : $('.flatpickr-friday[data-id=' + id + ']').css('display', 'none');
 
             $('.flatpickr-friday[data-id=' + id + ']').flatpickr({
@@ -759,7 +759,7 @@
         });
 
         $(document).on('click', '.sat_check', function(){
-            var id = $(this).data('id');
+            var id = $(this).attr('data-id').toString();
             $(this).is(':checked') ? $('.flatpickr-saturday[data-id=' + id + ']').css('display', 'inline') : $('.flatpickr-saturday[data-id=' + id + ']').css('display', 'none');
 
             $('.flatpickr-saturday[data-id=' + id + ']').flatpickr({
@@ -776,7 +776,7 @@
         });
 
         $(document).on('click', '.sun_check', function(){
-            var id = $(this).data('id');
+            var id = $(this).attr('data-id').toString();
             $(this).is(':checked') ? $('.flatpickr-sunday[data-id=' + id + ']').css('display', 'inline') : $('.flatpickr-sunday[data-id=' + id + ']').css('display', 'none');
 
             $('.flatpickr-sunday[data-id=' + id + ']').flatpickr({
@@ -793,81 +793,131 @@
         });
 
         $(document).on('click', '.save-monday', function(){
-            var id = $(this).data('id').toString();
+            var id = $(this).attr('data-id').toString();
             
             var start_time = $('.mon-start-time[data-id=' + id + ']').text();
             var end_time = $('.mon-end-time[data-id=' + id + ']').text();
             var date_check = $('.mon_check[data-id=' + id + ']').is(':checked') ? 1 : 0;
             var selectdata = $('.flatpickr-monday[data-id=' + id + ']').val() ? $('.flatpickr-monday[data-id=' + id + ']').val() : '0';
-            var service_id = '{{$createId}}'
+            var service_id = '{{$createId}}';
+            var weekname = 'mondays';
+            var week = 'monday';
+            var short_week = 'mon';
             
-            // createId
-            var createurl = '/datatrans-week-create';
-            var updateurl = '/datatrans-week-update';
-            if(start_time != end_time){
-                if(id.includes("live_")){
-                    var real_id = id.split('_')[1];
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        type: 'post',
-                        url: updateurl,
-                        data: { start_time: start_time, end_time : end_time, date_check : date_check, selectdata : selectdata, weekname : 'mondays', service_id : service_id, real_id : real_id },
-                        success: function (data) {
-                            if (data['success']) {
-                            }
-                            else {
-                                console.log('error');
-                            }
-                        }
-                    });
-                }
-                else{
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        type: 'post',
-                        url: createurl,
-                        data: { start_time: start_time, end_time : end_time, date_check : date_check, selectdata : selectdata, weekname : 'mondays', service_id : service_id },
-                        success: function (data) {
-                            if (data['success']) {
-                                $('.remove-monday[data-id=' + id + ']').attr("data-id", 'live_' + data['success']);
-                                $('.save-monday[data-id=' + id + ']').html('Saved');
-                                $('.save-monday[data-id=' + id + ']').attr("data-id", 'live_' + data['success']);
-                            }
-                            else {
-                                console.log('error');
-                            }
-                        }
-                    });
-                }  
-            }
+            CreateUpdate(id, start_time, end_time, date_check, selectdata, service_id, service_id, weekname, week, short_week);
+            
         });
+
+        $(document).on('click', '.save-tuesday', function(){
+            var id = $(this).attr('data-id').toString();
+            
+            var start_time = $('.tue-start-time[data-id=' + id + ']').text();
+            var end_time = $('.tue-end-time[data-id=' + id + ']').text();
+            var date_check = $('.tue_check[data-id=' + id + ']').is(':checked') ? 1 : 0;
+            var selectdata = $('.flatpickr-tuesday[data-id=' + id + ']').val() ? $('.flatpickr-tuesday[data-id=' + id + ']').val() : '0';
+            var service_id = '{{$createId}}';
+            var weekname = 'tuesdays';
+            var week = 'tuesday';
+            var short_week = 'tue';
+
+            
+            CreateUpdate(id, start_time, end_time, date_check, selectdata, service_id, service_id, weekname, week, short_week);
+            
+        });
+
+        $(document).on('click', '.save-wednesday', function(){
+            var id = $(this).attr('data-id').toString();
+            
+            var start_time = $('.wed-start-time[data-id=' + id + ']').text();
+            var end_time = $('.wed-end-time[data-id=' + id + ']').text();
+            var date_check = $('.wed_check[data-id=' + id + ']').is(':checked') ? 1 : 0;
+            var selectdata = $('.flatpickr-wednesday[data-id=' + id + ']').val() ? $('.flatpickr-wednesday[data-id=' + id + ']').val() : '0';
+            var service_id = '{{$createId}}';
+            var weekname = 'wednesdays';
+            var week = 'wednesday';
+            var short_week = 'wed';
+
+            
+            CreateUpdate(id, start_time, end_time, date_check, selectdata, service_id, service_id, weekname, week, short_week);
+            
+        });
+
+        $(document).on('click', '.save-thursday', function(){
+            var id = $(this).attr('data-id').toString();
+            
+            var start_time = $('.thu-start-time[data-id=' + id + ']').text();
+            var end_time = $('.thu-end-time[data-id=' + id + ']').text();
+            var date_check = $('.thu_check[data-id=' + id + ']').is(':checked') ? 1 : 0;
+            var selectdata = $('.flatpickr-thursday[data-id=' + id + ']').val() ? $('.flatpickr-thursday[data-id=' + id + ']').val() : '0';
+            var service_id = '{{$createId}}';
+            var weekname = 'thursdays';
+            var week = 'thursday';
+            var short_week = 'thu';
+
+            
+            CreateUpdate(id, start_time, end_time, date_check, selectdata, service_id, service_id, weekname, week, short_week);
+            
+        });
+
+        $(document).on('click', '.save-friday', function(){
+            var id = $(this).attr('data-id').toString();
+            
+            var start_time = $('.fri-start-time[data-id=' + id + ']').text();
+            var end_time = $('.fri-end-time[data-id=' + id + ']').text();
+            var date_check = $('.fri_check[data-id=' + id + ']').is(':checked') ? 1 : 0;
+            var selectdata = $('.flatpickr-friday[data-id=' + id + ']').val() ? $('.flatpickr-friday[data-id=' + id + ']').val() : '0';
+            var service_id = '{{$createId}}';
+            var weekname = 'fridays';
+            var week = 'friday';
+            var short_week = 'fri';
+
+            
+            CreateUpdate(id, start_time, end_time, date_check, selectdata, service_id, service_id, weekname, week, short_week);
+            
+        });
+
+        $(document).on('click', '.save-saturday', function(){
+            var id = $(this).attr('data-id').toString();
+            console.log(id);
+            var start_time = $('.sat-start-time[data-id=' + id + ']').text();
+            var end_time = $('.sat-end-time[data-id=' + id + ']').text();
+            var date_check = $('.sat_check[data-id=' + id + ']').is(':checked') ? 1 : 0;
+            var selectdata = $('.flatpickr-saturday[data-id=' + id + ']').val() ? $('.flatpickr-saturday[data-id=' + id + ']').val() : '0';
+            var service_id = '{{$createId}}';
+            var weekname = 'saturdays';
+            var week = 'saturday';
+            var short_week = 'sat';
+
+            
+            CreateUpdate(id, start_time, end_time, date_check, selectdata, service_id, service_id, weekname, week, short_week);
+            
+        });
+
+        $(document).on('click', '.save-sunday', function(){
+            var id = $(this).attr('data-id').toString();
+            
+            var start_time = $('.sun-start-time[data-id=' + id + ']').text();
+            var end_time = $('.sun-end-time[data-id=' + id + ']').text();
+            var date_check = $('.sun_check[data-id=' + id + ']').is(':checked') ? 1 : 0;
+            var selectdata = $('.flatpickr-sunday[data-id=' + id + ']').val() ? $('.flatpickr-sunday[data-id=' + id + ']').val() : '0';
+            var service_id = '{{$createId}}';
+            var weekname = 'sundays';
+            var week = 'sunday';
+            var short_week = 'sun';
+            
+            CreateUpdate(id, start_time, end_time, date_check, selectdata, service_id, service_id, weekname, week, short_week);
+            
+        });
+
         // Remove
         $(document).on('click', '.remove-monday', function(e){
             var id = $(this).data('id').toString();
-            console.log('id----------->', id);
+            var weekname = 'mondays';
+            
             if(id.includes("live_")){
                 var real_id = id.split('_')[1];
-                var remove_url = '/datatrans-weel-remove';
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type: 'post',
-                    url: remove_url,
-                    data:{weekname: 'mondays', real_id : real_id},
-                    success: function (data) {
-                        if(data['success']) {
-                            console.log('remove');
-                        }
-                        else {
-                            console.log('error');
-                        }
-                    }
-                });
+                RemoveFun(weekname, real_id);
+               
                 $(this).parent().parent().remove();
             }
             else{
@@ -875,10 +925,128 @@
             }
             
         });
-              
-     
-        
 
+        $(document).on('click', '.remove-tuesday', function(e){
+            var id = $(this).data('id').toString();
+            var weekname = 'tuesdays';
+            
+            if(id.includes("live_")){
+                var real_id = id.split('_')[1];
+                RemoveFun(weekname, real_id);
+               
+                $(this).parent().parent().remove();
+            }
+            else{
+                $(this).parent().parent().remove();
+            }
+            
+        });
+
+        $(document).on('click', '.remove-wednesday', function(e){
+            var id = $(this).data('id').toString();
+            var weekname = 'wednesdays';
+            
+            if(id.includes("live_")){
+                var real_id = id.split('_')[1];
+                RemoveFun(weekname, real_id);
+               
+                $(this).parent().parent().remove();
+            }
+            else{
+                $(this).parent().parent().remove();
+            }
+            
+        });
+
+        $(document).on('click', '.remove-thursday', function(e){
+            var id = $(this).data('id').toString();
+            var weekname = 'thursdays';
+            
+            if(id.includes("live_")){
+                var real_id = id.split('_')[1];
+                RemoveFun(weekname, real_id);
+               
+                $(this).parent().parent().remove();
+            }
+            else{
+                $(this).parent().parent().remove();
+            }
+            
+        });
+
+        $(document).on('click', '.remove-friday', function(e){
+            var id = $(this).data('id').toString();
+            var weekname = 'fridays';
+            
+            if(id.includes("live_")){
+                var real_id = id.split('_')[1];
+                RemoveFun(weekname, real_id);
+               
+                $(this).parent().parent().remove();
+            }
+            else{
+                $(this).parent().parent().remove();
+            }
+            
+        });
+
+        $(document).on('click', '.remove-saturday', function(e){
+            var id = $(this).data('id').toString();
+            var weekname = 'saturdays';
+            
+            if(id.includes("live_")){
+                var real_id = id.split('_')[1];
+                RemoveFun(weekname, real_id);
+               
+                $(this).parent().parent().remove();
+            }
+            else{
+                $(this).parent().parent().remove();
+            }
+            
+        });
+
+        $(document).on('click', '.remove-sunday', function(e){
+            var id = $(this).data('id').toString();
+            var weekname = 'sundays';
+            
+            if(id.includes("live_")){
+                var real_id = id.split('_')[1];
+                RemoveFun(weekname, real_id);
+               
+                $(this).parent().parent().remove();
+            }
+            else{
+                $(this).parent().parent().remove();
+            }
+            
+        });
+
+
+        $('.monday-status').on('change', function(e){
+            e.preventDefault();
+            var status = $(this).is(':checked')?1:0;
+            var week = 'mon';
+            var id = '{{$createId}}'
+            var changeurl = '/datatrans-week-status'
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'post',
+                url: changeurl,
+                data: { id : id, week : week, status : status },
+                success: function (data) {
+                    if (data['success']) {
+                    }
+                    else {
+                        console.log('error');
+                    }
+                }
+            
+            });
+        })
+              
         $(document).ready(function(){
             
             $(document).on('click', '.tp-start-time', function(){
@@ -1088,7 +1256,82 @@
             minutes = ("0" + minutes).substr(-2);
             return hour + ":" + minutes;
         }
+
+        function CreateUpdate(id, start_time, end_time, date_check, selectdata, service_id, service_id, weekname, week, short_week){
+            // createId
+            var createurl = '/datatrans-week-create';
+            var updateurl = '/datatrans-week-update';
+           
+            if(start_time != end_time){
+                
+                if(id.includes("live")){
+                    
+                    var real_id = id.split('_')[1];
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type: 'post',
+                        url: updateurl,
+                        data: { start_time: start_time, end_time : end_time, date_check : date_check, selectdata : selectdata, weekname : weekname, service_id : service_id, real_id : real_id },
+                        success: function (data) {
+                            if (data['success']) {
+                                
+                            }
+                            else {
+                                console.log('error');
+                            }
+                        }
+                    });
+                }
+                else{
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type: 'post',
+                        url: createurl,
+                        data: { start_time: start_time, end_time : end_time, date_check : date_check, selectdata : selectdata, weekname : weekname, service_id : service_id },
+                        success: function (data) {
+                            if (data['success']) {
+                                
+                                $('.save-'+week+'[data-id=' + id + ']').html('Saved');
+                                $('.remove-'+week+'[data-id=' + id + ']').attr("data-id", 'live_' + data['success']);
+                                $('.save-'+week+'[data-id=' + id + ']').attr("data-id", 'live_' + data['success']);
+                                $('.'+short_week+'-start-time[data-id=' + id + ']').attr("data-id", 'live_' + data['success']);
+                                $('.'+short_week+'-end-time[data-id=' + id + ']').attr("data-id", 'live_' + data['success']);
+                                
+                                $('.'+short_week+'_check[data-id=' + id + ']').attr("data-id", 'live_' + data['success']);
+                                $('.flatpickr-'+week+'[data-id=' + id + ']').attr("data-id", 'live_' + data['success']);
+                            }
+                            else {
+                                console.log('error');
+                            }
+                        }
+                    });
+                }
+            }
+        }
         
+        function RemoveFun(weekname, real_id){
+            var remove_url = '/datatrans-weel-remove';
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'post',
+                url: remove_url,
+                data:{weekname: weekname, real_id : real_id},
+                success: function (data) {
+                    if(data['success']) {
+                        
+                    }
+                    else {
+                        console.log('error');
+                    }
+                }
+            });
+        }
    
     </script>
 </body>

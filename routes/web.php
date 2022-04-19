@@ -63,6 +63,9 @@ Route::get('/', function () {
         
         Route::post('datatrans-week-update', [DatatransServiceController::class, 'weekupdate'])->name('datatrans.service.weekupdate');
 
+        Route::post('datatrans-week-status', [DatatransServiceController::class, 'weekstatus'])->name('datatrans.service.weekstatus');
+
+
 
 
         Route::get('datatrans-order', [DatatransOrderController::class, 'index'])->name('datatrans.order.index');

@@ -126,6 +126,17 @@ class DatatransServiceController extends Controller
         }
     }
 
+    public function weekstatus(Request $request){
+        try{
+            DB::table('datatrans-services')->where('id', $request->id)->update([
+                $request->week => $request->status,
+            ]);
+            return response()->json(['success'=>true]);
+        }catch (Exception $e) {
+            return response()->json(['success'=>false]);
+        }
+    }
+
     public function update($id){
         
         try{
