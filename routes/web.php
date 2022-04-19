@@ -65,6 +65,10 @@ Route::get('/', function () {
 
         Route::post('datatrans-week-status', [DatatransServiceController::class, 'weekstatus'])->name('datatrans.service.weekstatus');
 
+        Route::post('datatrans-service-select-get/{id}', [DatatransServiceController::class, 'selectget'])->name('datatrans.service.selectget');
+        
+        
+
 
 
 

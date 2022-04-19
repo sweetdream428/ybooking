@@ -161,5 +161,20 @@ class DatatransServiceController extends Controller
         }
     }
 
+    public function selectget($id){
+        try{
+            $mondays = DB::table('mondays')->where('service_id', $id)->get();
+            $tuesdays = DB::table('tuesdays')->where('service_id', $id)->get();
+            $wednesdays = DB::table('wednesdays')->where('service_id', $id)->get();
+            $thursdays = DB::table('thursdays')->where('service_id', $id)->get();
+            $fridays = DB::table('fridays')->where('service_id', $id)->get();
+            $saturdays = DB::table('saturdays')->where('service_id', $id)->get();
+            $sundays = DB::table('sundays')->where('service_id', $id)->get();
+            return response()->json(['mondays'=>$mondays, 'tuesdays'=>$tuesdays, 'wednesdays'=>$wednesdays, 'thursdays'=>$thursdays, 'fridays'=>$fridays, 'saturdays'=>$saturdays, 'sundays'=>$sundays]);
+        }catch (Exception $e) {
+            return response()->json(['success'=>false]);
+        }
+    }
+
 
 }

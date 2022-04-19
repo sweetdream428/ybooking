@@ -6,7 +6,7 @@
     Author: PIXINVENT
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
-
+var temp = [];
 $(function () {
   'use strict';
 
@@ -91,6 +91,9 @@ $(function () {
             required: true,
             email: true
           },
+          // comment: {
+          //   required: true
+          // },
           payment_method_datatrans: {
             required: true,
           }
@@ -129,25 +132,6 @@ $(function () {
             var temp_service_name = $('#service_name').val();
             var temp_category_name = $('#category_name').val();
             var temp_service_price = $('.service_name_option:selected').data('price');
-            var temp_service_duration = $('.service_name_option:selected').data('duration') * 1000;
-            var temp_sun = $('.service_name_option:selected').data('sun') != 1 ? 'Sun,' : '';
-            var temp_mon = $('.service_name_option:selected').data('mon') != 1 ? 'Mon,' : '';
-            var temp_tue = $('.service_name_option:selected').data('tue') != 1 ? 'Tue,' : '';
-            var temp_wed = $('.service_name_option:selected').data('wed') != 1 ? 'Wed,' : '';
-            var temp_thu = $('.service_name_option:selected').data('thu') != 1 ? 'Thu,' : '';
-            var temp_fri = $('.service_name_option:selected').data('fri') != 1 ? 'Fri,' : '';
-            var temp_sat = $('.service_name_option:selected').data('sat') != 1 ? 'Sat' : '';
-            var temp_week_sums = temp_sun + temp_mon + temp_tue + temp_wed + temp_thu + temp_fri + temp_sat;
-            var week_sums = temp_week_sums.split(',');
-
-            var temp_start_time = $('.service_name_option:selected').data('start_time');
-            var temp_start_time_get = temp_start_time.split(':');
-
-            var mile_start_time = (Number(temp_start_time_get[0]) * 3600 + Number(temp_start_time_get[1]) * 60 + Number(temp_start_time_get[2])) * 1000;
-
-            var temp_end_time = $('.service_name_option:selected').data('end_time');
-            var temp_end_time_get = temp_end_time.split(':');
-            var mile_end_time = (Number(temp_end_time_get[0]) * 3600 + Number(temp_end_time_get[1]) * 60 + Number(temp_end_time_get[2])) * 1000;
 
             $('.service__name').text(temp_service_name);
             $('.service__price').text(temp_service_price);
@@ -157,116 +141,246 @@ $(function () {
             }
             var start_day = initial_start_day;
 
-            var start_time = mile_start_time;
-            var end_time = mile_end_time;
-            var defference_time = Number(temp_service_duration);
             var employeename = $('#employee').val();
-            console.log('employeename', employeename);
-            numberedStepper.next()
 
-            // Page Calendar-------------------------------------
-            var temp = [], time, header, body, i;
+            var temp_service_duration = $('.service_name_option:selected').data('duration') * 1000;
+            var defference_time = Number(temp_service_duration);
+            var temp_sun = $('.service_name_option:selected').data('sun') != 1 ? 'Sun,' : '';
+            var temp_mon = $('.service_name_option:selected').data('mon') != 1 ? 'Mon,' : '';
+            var temp_tue = $('.service_name_option:selected').data('tue') != 1 ? 'Tue,' : '';
+            var temp_wed = $('.service_name_option:selected').data('wed') != 1 ? 'Wed,' : '';
+            var temp_thu = $('.service_name_option:selected').data('thu') != 1 ? 'Thu,' : '';
+            var temp_fri = $('.service_name_option:selected').data('fri') != 1 ? 'Fri,' : '';
+            var temp_sat = $('.service_name_option:selected').data('sat') != 1 ? 'Sat' : '';
+            var temp_week_sums = temp_sun + temp_mon + temp_tue + temp_wed + temp_thu + temp_fri + temp_sat;
+            var week_sums = temp_week_sums.split(',');
+            var service_id = $('.service_name_option:selected').data('id');
+            
+            console.log('service------------------->id', service_id);
+            var week_data_get = '/datatrans-service-select-get/' + service_id;
+            $.ajax({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              },
+              type: 'post',
+              url: week_data_get,
+              success: function(data) {
+                  if(data){
+                    // Page Calendar-------------------------------------
+                    var time, header, body, i;
 
-            var stag = '<div class="datatrans-column">',
-              etag = '</div>',
-              page = $('#datatrans_time_screen');
+                    var stag = '<div class="datatrans-column">',
+                      etag = '</div>',
+                      page = $('#datatrans_time_screen');
 
-            for (var day = start_day; day <= (start_day + 86400000 * 365); day += 86400000) {
+                      console.log(data);
+                      var mondays = data.mondays;
+                      var tuesdays = data.tuesdays;
+                      var wednesdays = data.wednesdays;
+                      for (var day = start_day; day <= (start_day + 365 * 86400000); day += 86400000) {
 
-              var header = '<button class="datatrans-day" type="button" name="datatrans_day" data-week="' + Dateweeks(day) + '" value="' + Dateyears(day) + '">' + Datedays(day) + '</button>';
+                        var header = '<button class="datatrans-day" type="button" name="datatrans_day" data-week="' + Dateweeks(day) + '" value="' + Dateyears(day) + '">' + Datedays(day) + '</button>';
+          
+                        for (var k = 0; k < (week_sums.length); k++) {
+          
+                          if (Dateweeks(day) == week_sums[k]) {
+                            header = '#';
+                          }
+                        }
+                        if (header != '#') {
+                          temp.push(header);
+                        }
+                        if(Dateweeks(day) == 'Mon'){
+                          DisplayData(mondays, day, calendar_events_times, temp_service_name, employeename, week_sums, defference_time);
+                        }
+                        if(Dateweeks(day) == 'Tue'){
+                          DisplayData(tuesdays, day, calendar_events_times, temp_service_name, employeename, week_sums, defference_time);
+                        }
+                        if(Dateweeks(day) == 'Wed'){
+                          DisplayData(wednesdays, day, calendar_events_times, temp_service_name, employeename, week_sums, defference_time);
+                        }
+                        if(Dateweeks(day) == 'Thu'){
+                          DisplayData(wednesdays, day, calendar_events_times, temp_service_name, employeename, week_sums, defference_time);
+                        }
+                        if(Dateweeks(day) == 'Fri'){
+                          DisplayData(wednesdays, day, calendar_events_times, temp_service_name, employeename, week_sums, defference_time);
+                        }
+                        if(Dateweeks(day) == 'Sat'){
+                          DisplayData(wednesdays, day, calendar_events_times, temp_service_name, employeename, week_sums, defference_time);
+                        }
+                        if(Dateweeks(day) == 'Sun'){
+                          DisplayData(wednesdays, day, calendar_events_times, temp_service_name, employeename, week_sums, defference_time);
+                        }
+                        
+                      }
 
-              for (var k = 0; k < (week_sums.length); k++) {
+                      var test = '';
+                      for (i = 0; i < temp.length; i++) {
+                        if (i % 10 == 0) {
+                          test = test + stag;
+                        }
+                        test = test + temp[i];
+          
+          
+                        if (i % 10 == 9 && i > 1 || i == temp.length - 1) {
+                          test = test + etag;
+                        }
+                      }
+          
+                      page.html(test)
 
-                if (Dateweeks(day) == week_sums[k]) {
-                  header = '#';
-                }
-              }
-              if (header != '#') {
-                temp.push(header);
-              }
+                      
+                      numberedStepper.next()
 
-              for (time = start_time; time <= end_time; time += defference_time) {
-                body = '<button class="datatrans-hour btn-next-hour "  type="button" name="datatrans_hour" value="' + Datehours(time) + '" data-time="' + Datehours(time) + '" data-day="' + Dateyears(day) + '" data-week="' + Dateweeks(day) + '" ><span class="ladda-label datatrans-time-main"><i class="datatrans-hour-icon"><span></span></i><span>' + Datehours(time) + '</span></span></button>';
+                      // End Page Calendar-------------------------------------
 
-                for (var j = 0; j < (calendar_events_times.length - 1); j++) {
-                  var calendar_events_time = calendar_events_times[j].replaceAll('"', '').split(',');
-                  var views_time = day + time;
-                  var event_start_time = calendar_events_time[0] * 1000 - defference_time;
-                  var event_end_time = calendar_events_time[1] * 1000;
+                      // Pagenation
+                      // jQuery Plugin: http://flaviusmatis.github.io/simplePagination.js/
 
-                  if (event_start_time < views_time && views_time < event_end_time) {
-                    body = '#';
+                      var items = $(".datatrans-time-screen .datatrans-column");
+                      var numItems = items.length;
+                      var perPage = 8;
+
+                      items.slice(perPage).hide();
+                      $('#pagination-container').pagination({
+                        items: numItems,
+                        itemsOnPage: perPage,
+                        prevText: "<",
+                        nextText: ">",
+
+                        onPageClick: function (pageNumber) {
+                          var showFrom = perPage * (pageNumber - 1);
+                          var showTo = showFrom + perPage;
+                          items.hide().slice(showFrom, showTo).show();
+                        }
+                      });
                   }
-                }
-                var orderchecking = '"' + temp_service_name + ':' + Dateyears(day) + ':' + Datehours(time) + ':00' + '"';
-
-                var employeechecking = '"' + temp_service_name + ':' + employeename + ':' + Dateyears(day) + ':' + Datehours(time) + ':00' + '"';
-
-                for (var index = 0; index < (emorders.length - 1); index++) {
-
-                  if (employeechecking == emorders[index]) {
-                    body = '#';
+                  else{
+                      console.log('error');
                   }
-                }
-
-                for (var j = 0; j < (checkvalues.length - 1); j++) {
-                  var ordertime = checkvalues[j];
-
-                  if (ordertime == orderchecking) {
-                    body = '#';
-                  }
-                }
-
-                for (var k = 0; k < (week_sums.length); k++) {
-
-                  if (Dateweeks(day) == week_sums[k]) {
-                    body = '#';
-                  }
-                }
-                if (body != '#') {
-                  temp.push(body);
-                }
-
               }
-            }
+            })
+            
+            // var temp_start_time = '06:00:00';
+            // var temp_end_time = '09:00:00';
+            // var temp_start_time = $('.service_name_option:selected').data('start_time');
+            // var temp_start_time_get = temp_start_time.split(':');
 
-            var test = '';
-            for (i = 0; i < temp.length; i++) {
-              if (i % 10 == 0) {
-                test = test + stag;
-              }
-              test = test + temp[i];
+            // var mile_start_time = (Number(temp_start_time_get[0]) * 3600 + Number(temp_start_time_get[1]) * 60 + Number(temp_start_time_get[2])) * 1000;
+
+            // // var temp_end_time = $('.service_name_option:selected').data('end_time');
+            // var temp_end_time_get = temp_end_time.split(':');
+            // var mile_end_time = (Number(temp_end_time_get[0]) * 3600 + Number(temp_end_time_get[1]) * 60 + Number(temp_end_time_get[2])) * 1000;
 
 
-              if (i % 10 == 9 && i > 1 || i == temp.length - 1) {
-                test = test + etag;
-              }
-            }
+            // var start_time = mile_start_time;
+            // var end_time = mile_end_time;
+            
+            // numberedStepper.next()
 
-            page.html(test)
+            // // Page Calendar-------------------------------------
+            // var temp = [], time, header, body, i;
 
-            // End Page Calendar-------------------------------------
+            // var stag = '<div class="datatrans-column">',
+            //   etag = '</div>',
+            //   page = $('#datatrans_time_screen');
 
-            // Pagenation
-            // jQuery Plugin: http://flaviusmatis.github.io/simplePagination.js/
+            //   for (var day = start_day; day <= (start_day + 86400000 * 365); day += 86400000) {
 
-            var items = $(".datatrans-time-screen .datatrans-column");
-            var numItems = items.length;
-            var perPage = 8;
+            //     var header = '<button class="datatrans-day" type="button" name="datatrans_day" data-week="' + Dateweeks(day) + '" value="' + Dateyears(day) + '">' + Datedays(day) + '</button>';
+  
+            //     for (var k = 0; k < (week_sums.length); k++) {
+  
+            //       if (Dateweeks(day) == week_sums[k]) {
+            //         header = '#';
+            //       }
+            //     }
+            //     if (header != '#') {
+            //       temp.push(header);
+            //     }
+  
+            //     for (time = start_time; time <= end_time; time += defference_time) {
+            //       body = '<button class="datatrans-hour btn-next-hour "  type="button" name="datatrans_hour" value="' + Datehours(time) + '" data-time="' + Datehours(time) + '" data-day="' + Dateyears(day) + '" data-week="' + Dateweeks(day) + '" ><span class="ladda-label datatrans-time-main"><i class="datatrans-hour-icon"><span></span></i><span>' + Datehours(time) + '</span></span></button>';
+  
+            //       for (var j = 0; j < (calendar_events_times.length - 1); j++) {
+            //         var calendar_events_time = calendar_events_times[j].replaceAll('"', '').split(',');
+            //         var views_time = day + time;
+            //         var event_start_time = calendar_events_time[0] * 1000 - defference_time;
+            //         var event_end_time = calendar_events_time[1] * 1000;
+  
+            //         if (event_start_time < views_time && views_time < event_end_time) {
+            //           body = '#';
+            //         }
+            //       }
+            //       var orderchecking = '"' + temp_service_name + ':' + Dateyears(day) + ':' + Datehours(time) + ':00' + '"';
+  
+            //       var employeechecking = '"' + temp_service_name + ':' + employeename + ':' + Dateyears(day) + ':' + Datehours(time) + ':00' + '"';
+  
+            //       for (var index = 0; index < (emorders.length - 1); index++) {
+  
+            //         if (employeechecking == emorders[index]) {
+            //           body = '#';
+            //         }
+            //       }
+  
+            //       for (var j = 0; j < (checkvalues.length - 1); j++) {
+            //         var ordertime = checkvalues[j];
+  
+            //         if (ordertime == orderchecking) {
+            //           body = '#';
+            //         }
+            //       }
+  
+            //       for (var k = 0; k < (week_sums.length); k++) {
+  
+            //         if (Dateweeks(day) == week_sums[k]) {
+            //           body = '#';
+            //         }
+            //       }
+            //       if (body != '#') {
+            //         temp.push(body);
+            //       }
+  
+            //     }
+            //   }
 
-            items.slice(perPage).hide();
-            $('#pagination-container').pagination({
-              items: numItems,
-              itemsOnPage: perPage,
-              prevText: "<",
-              nextText: ">",
+            // var test = '';
+            // for (i = 0; i < temp.length; i++) {
+            //   if (i % 10 == 0) {
+            //     test = test + stag;
+            //   }
+            //   test = test + temp[i];
 
-              onPageClick: function (pageNumber) {
-                var showFrom = perPage * (pageNumber - 1);
-                var showTo = showFrom + perPage;
-                items.hide().slice(showFrom, showTo).show();
-              }
-            });
+
+            //   if (i % 10 == 9 && i > 1 || i == temp.length - 1) {
+            //     test = test + etag;
+            //   }
+            // }
+
+            // page.html(test)
+
+            // // End Page Calendar-------------------------------------
+
+            // // Pagenation
+            // // jQuery Plugin: http://flaviusmatis.github.io/simplePagination.js/
+
+            // var items = $(".datatrans-time-screen .datatrans-column");
+            // var numItems = items.length;
+            // var perPage = 8;
+
+            // items.slice(perPage).hide();
+            // $('#pagination-container').pagination({
+            //   items: numItems,
+            //   itemsOnPage: perPage,
+            //   prevText: "<",
+            //   nextText: ">",
+
+            //   onPageClick: function (pageNumber) {
+            //     var showFrom = perPage * (pageNumber - 1);
+            //     var showTo = showFrom + perPage;
+            //     items.hide().slice(showFrom, showTo).show();
+            //   }
+            // });
 
           } else {
             e.preventDefault();
@@ -481,3 +595,71 @@ $(function () {
 
   })
 });
+
+function DisplayData(params, day, calendar_events_times, temp_service_name, employeename, week_sums, defference_time){
+  for(var i = 0; i < params.length; i++){
+    var param = params[i];
+    if(param.date_check == 0){
+      
+      var temp_start_time = param.start_time;
+      var temp_end_time = param.end_time;
+      
+
+      var temp_start_time_get = temp_start_time.split(':');
+      var mile_start_time = (Number(temp_start_time_get[0]) * 3600 + Number(temp_start_time_get[1]) * 60 + Number(temp_start_time_get[2])) * 1000;
+
+      var temp_end_time_get = temp_end_time.split(':');
+      var mile_end_time = (Number(temp_end_time_get[0]) * 3600 + Number(temp_end_time_get[1]) * 60 + Number(temp_end_time_get[2])) * 1000;
+
+      var start_time = mile_start_time;
+      var end_time = mile_end_time;
+
+      for (time = start_time; time <= end_time; time += defference_time) {
+        body = '<button class="datatrans-hour btn-next-hour "  type="button" name="datatrans_hour" value="' + Datehours(time) + '" data-time="' + Datehours(time) + '" data-day="' + Dateyears(day) + '" data-week="' + Dateweeks(day) + '" ><span class="ladda-label datatrans-time-main"><i class="datatrans-hour-icon"><span></span></i><span>' + Datehours(time) + '</span></span></button>';
+
+        for (var j = 0; j < (calendar_events_times.length - 1); j++) {
+          var calendar_events_time = calendar_events_times[j].replaceAll('"', '').split(',');
+          var views_time = day + time;
+          var event_start_time = calendar_events_time[0] * 1000 - defference_time;
+          var event_end_time = calendar_events_time[1] * 1000;
+
+          if (event_start_time < views_time && views_time < event_end_time) {
+            body = '#';
+          }
+        }
+        var orderchecking = '"' + temp_service_name + ':' + Dateyears(day) + ':' + Datehours(time) + ':00' + '"';
+
+        var employeechecking = '"' + temp_service_name + ':' + employeename + ':' + Dateyears(day) + ':' + Datehours(time) + ':00' + '"';
+
+        for (var index = 0; index < (emorders.length - 1); index++) {
+
+          if (employeechecking == emorders[index]) {
+            body = '#';
+          }
+        }
+
+        for (var j = 0; j < (checkvalues.length - 1); j++) {
+          var ordertime = checkvalues[j];
+
+          if (ordertime == orderchecking) {
+            body = '#';
+          }
+        }
+
+        for (var k = 0; k < (week_sums.length); k++) {
+
+          if (Dateweeks(day) == week_sums[k]) {
+            body = '#';
+          }
+        }
+        if (body != '#') {
+          temp.push(body);
+        }
+
+      }
+    }
+    else{
+      
+    }
+  }
+}

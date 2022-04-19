@@ -99,7 +99,7 @@
                                                 <select class="form-select w-100" name="service_name" id="service_name" aria-label="service_name" required>
                                                     <option value="">{{ trans('locale.FrontendSelectService') }}</option>
                                                     @foreach ($services as $service)
-                                                        <option value="{{$service->title}}" class="service_name_option" data-price="{{$service->price}}" data-duration="{{$service->duration}}" data-start_time="{{$service->start_time}}" data-end_time="{{$service->end_time}}" data-sun="{{$service->sun}}" data-mon="{{$service->mon}}" data-tue="{{$service->tue}}" data-wed="{{$service->wed}}" data-thu="{{$service->thu}}" data-fri="{{$service->fri}}" data-sat="{{$service->sat}}">{{$service->title}}</option>
+                                                        <option value="{{$service->title}}" class="service_name_option" data-id="{{$service->id}}" data-price="{{$service->price}}" data-duration="{{$service->duration}}" data-sun="{{$service->sun}}" data-mon="{{$service->mon}}" data-tue="{{$service->tue}}" data-wed="{{$service->wed}}" data-thu="{{$service->thu}}" data-fri="{{$service->fri}}" data-sat="{{$service->sat}}">{{$service->title}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -767,7 +767,7 @@
                         }
                         
                         for(var i = 0; i<services.length; i++){
-                            servicelists.push("<option class='service_name_option' data-price='"+ services[i].price +"' data-duration='"+ services[i].duration +"' data-start_time='"+ services[i].start_time +"' data-end_time='"+ services[i].end_time +"' data-sun='"+ services[i].sun +"' data-mon='"+ services[i].mon +"' data-tue='"+ services[i].tue +"' data-wed='"+ services[i].wed +"' data-thu='"+ services[i].thu +"' data-fri='"+ services[i].fri +"' data-sat='"+ services[i].sat +"' value='"+services[i].title+ "'>" + services[i].title + "</option>");
+                            servicelists.push("<option class='service_name_option' data-id='"+ services[i].id +"' data-price='"+ services[i].price +"' data-duration='"+ services[i].duration +"' data-sun='"+ services[i].sun +"' data-mon='"+ services[i].mon +"' data-tue='"+ services[i].tue +"' data-wed='"+ services[i].wed +"' data-thu='"+ services[i].thu +"' data-fri='"+ services[i].fri +"' data-sat='"+ services[i].sat +"' value='"+services[i].title+ "'>" + services[i].title + "</option>");
                         }
 
                         for(var i = 0; i<categories.length; i++){
