@@ -666,8 +666,8 @@ function DisplayData(params, day, calendar_events_times, temp_service_name, empl
       
       var select_date = new Date(param.selectdata);
       var real_day = select_date.getTime();
-      console.log(real_day);
-      console.log('real-day', real_day);
+      // console.log(real_day);
+      // console.log('real-day', real_day);
 
       var temp_start_time = param.start_time;
       var temp_end_time = param.end_time;

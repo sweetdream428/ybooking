@@ -95,47 +95,47 @@ $(function() {
     }
 
     // Form Validation
-    if (newUserForm.length) {
-        newUserForm.validate({
-            errorClass: 'error',
-            rules: {
-                'title': {
-                    required: true
-                },
-                'duration': {
-                    required: true
-                },
-                'price': {
-                    required: true
-                }
-            }
-        });
+    // if (newUserForm.length) {
+    //     newUserForm.validate({
+    //         errorClass: 'error',
+    //         rules: {
+    //             'title': {
+    //                 required: true
+    //             },
+    //             'duration': {
+    //                 required: true
+    //             },
+    //             'price': {
+    //                 required: true
+    //             }
+    //         }
+    //     });
 
-        newUserForm.on('submit', function(e) {
-            var isValid = newUserForm.valid();
-            var formData = new FormData(this);
-            e.preventDefault();
-            if (isValid) {
-                $.ajax({
-                    type: 'post',
-                    url: 'datatrans-service-list',
-                    cache:false,
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function(data) {
-                        if(data['success']){
+    //     newUserForm.on('submit', function(e) {
+    //         var isValid = newUserForm.valid();
+    //         var formData = new FormData(this);
+    //         e.preventDefault();
+    //         if (isValid) {
+    //             $.ajax({
+    //                 type: 'post',
+    //                 url: 'datatrans-service-list',
+    //                 cache:false,
+    //                 data: formData,
+    //                 contentType: false,
+    //                 processData: false,
+    //                 success: function(data) {
+    //                     if(data['success']){
                             
-                        }
-                        else{
-                            console.log(data);
-                        }
-                    }
-                });
-                newUserSidebar.modal('hide');
-            }
-        });
-    }
+    //                     }
+    //                     else{
+    //                         console.log(data);
+    //                     }
+    //                 }
+    //             });
+    //             newUserSidebar.modal('hide');
+    //         }
+    //     });
+    // }
     // To initialize tooltip with body container
     $('body').tooltip({
         selector: '[data-toggle="tooltip"]',
