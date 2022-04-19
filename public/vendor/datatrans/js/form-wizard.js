@@ -603,7 +603,7 @@ $(function () {
 function DisplayData(params, day, calendar_events_times, temp_service_name, employeename, week_sums, defference_time){
   for(var i = 0; i < params.length; i++){
     var param = params[i];
-    if(param.date_check == 0){
+    if(param.date_check != 1){
       
       var temp_start_time = param.start_time;
       var temp_end_time = param.end_time;
@@ -663,9 +663,12 @@ function DisplayData(params, day, calendar_events_times, temp_service_name, empl
       }
     }
     else{
-      console.log('day', day);
-      console.log('date_check', param.date_check);
-      console.log('selectdata', param.selectdata);
+      
+      var select_date = new Date(param.selectdata);
+      var real_day = select_date.getTime();
+      console.log(real_day);
+      console.log('real-day', real_day);
+
       var temp_start_time = param.start_time;
       var temp_end_time = param.end_time;
       
@@ -680,11 +683,11 @@ function DisplayData(params, day, calendar_events_times, temp_service_name, empl
       var end_time = mile_end_time;
 
       for (time = start_time; time <= end_time; time += defference_time) {
-        body = '<button class="datatrans-hour btn-next-hour "  type="button" name="datatrans_hour" value="' + Datehours(time) + '" data-time="' + Datehours(time) + '" data-day="' + Dateyears(day) + '" data-week="' + Dateweeks(day) + '" ><span class="ladda-label datatrans-time-main"><i class="datatrans-hour-icon"><span></span></i><span>' + Datehours(time) + '</span></span></button>';
+        body = '<button class="datatrans-hour btn-next-hour "  type="button" name="datatrans_hour" value="' + Datehours(time) + '" data-time="' + Datehours(time) + '" data-day="' + Dateyears(real_day) + '" data-week="' + Dateweeks(real_day) + '" ><span class="ladda-label datatrans-time-main"><i class="datatrans-hour-icon"><span></span></i><span>' + Datehours(time) + '</span></span></button>';
 
         for (var j = 0; j < (calendar_events_times.length - 1); j++) {
           var calendar_events_time = calendar_events_times[j].replaceAll('"', '').split(',');
-          var views_time = day + time;
+          var views_time = real_day + time;
           var event_start_time = calendar_events_time[0] * 1000 - defference_time;
           var event_end_time = calendar_events_time[1] * 1000;
 
@@ -692,9 +695,9 @@ function DisplayData(params, day, calendar_events_times, temp_service_name, empl
             body = '#';
           }
         }
-        var orderchecking = '"' + temp_service_name + ':' + Dateyears(day) + ':' + Datehours(time) + ':00' + '"';
+        var orderchecking = '"' + temp_service_name + ':' + Dateyears(real_day) + ':' + Datehours(time) + ':00' + '"';
 
-        var employeechecking = '"' + temp_service_name + ':' + employeename + ':' + Dateyears(day) + ':' + Datehours(time) + ':00' + '"';
+        var employeechecking = '"' + temp_service_name + ':' + employeename + ':' + Dateyears(real_day) + ':' + Datehours(time) + ':00' + '"';
 
         for (var index = 0; index < (emorders.length - 1); index++) {
 
@@ -711,15 +714,20 @@ function DisplayData(params, day, calendar_events_times, temp_service_name, empl
           }
         }
 
+        if(Dateyears(day) != Dateyears(real_day)){
+          body = '#';
+        }
+
         for (var k = 0; k < (week_sums.length); k++) {
 
-          if (Dateweeks(day) == week_sums[k]) {
+          if (Dateweeks(real_day) == week_sums[k]) {
             body = '#';
           }
         }
         if (body != '#') {
           temp.push(body);
         }
+        
 
       }
     }
