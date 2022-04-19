@@ -262,7 +262,7 @@
                                     <div class="col-md-4 col-12">
                                         <div class="form-group">
                                             <label class="form-label" for="allow">Allow</label>
-                                            <input type="number" class="form-control" id="allow"
+                                            <input type="number" step="1" min="1" class="form-control" id="allow"
                                                 placeholder="" name="allow" aria-label="allow"
                                                 aria-describedby="allow" value="{{$service->allow}}" required/>
                                         </div>
@@ -676,14 +676,13 @@
 
             var title = $('#title').val();
             var category = $('#category').val();
-            var duration_value = $('.duration_name_value').val();
+            var duration_name = $('.duration_name_value').val();
             var duration = $('#duration').val();
             var price = $('#price').val();
             var location = $('#location').val();
             var employee = $('#employee').val();
             var allow = $('#allow').val();
-
-            console.log('title', title, 'category', category, 'duration_value', duration_value, 'duration', duration, 'price', price, 'location', location, 'employee', employee, 'allow', allow );
+            var id = '{{$createId}}';
 
             var serviceurl = '/datatrans-service-update';
             if(titlevalid && allowvalid){
@@ -693,9 +692,10 @@
                     },
                     type: 'post',
                     url: serviceurl,
-                    data: {  },
+                    data: { title : title, category : category, duration_name : duration_name, duration : duration, price : price, location : location, employee : employee, allow : allow, id : id },
                     success: function (data) {
                         if (data['success']) {
+                            toastr["success"]("Changed successfully.");
                         }
                         else {
                             console.log('error');
@@ -704,6 +704,9 @@
                 });
             }
             
+        });
+        $('.btn-service-cancel').on('click', function(e){
+            window.location.href = '/datatrans-service-list';
         });
 
         $(function(){
@@ -1373,7 +1376,7 @@
                         data: { start_time: start_time, end_time : end_time, date_check : date_check, selectdata : selectdata, weekname : weekname, service_id : service_id, real_id : real_id },
                         success: function (data) {
                             if (data['success']) {
-                                
+                                toastr["success"]("Changed successfully.");
                             }
                             else {
                                 console.log('error');
@@ -1391,7 +1394,8 @@
                         data: { start_time: start_time, end_time : end_time, date_check : date_check, selectdata : selectdata, weekname : weekname, service_id : service_id },
                         success: function (data) {
                             if (data['success']) {
-                                
+                                toastr["success"]("Changed successfully.");
+
                                 $('.save-'+week+'[data-id=' + id + ']').html('Saved');
                                 $('.remove-'+week+'[data-id=' + id + ']').attr("data-id", 'live_' + data['success']);
                                 $('.save-'+week+'[data-id=' + id + ']').attr("data-id", 'live_' + data['success']);
@@ -1400,6 +1404,7 @@
                                 
                                 $('.'+short_week+'_check[data-id=' + id + ']').attr("data-id", 'live_' + data['success']);
                                 $('.flatpickr-'+week+'[data-id=' + id + ']').attr("data-id", 'live_' + data['success']);
+
                             }
                             else {
                                 console.log('error');
@@ -1441,7 +1446,7 @@
                 data: { id : id, week : week, status : status },
                 success: function (data) {
                     if (data['success']) {
-                        
+                        toastr["success"]("Changed successfully.");
                     }
                     else {
                         console.log('error');
@@ -1450,7 +1455,24 @@
             
             });
         }
-   
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
     </script>
 </body>
 <!-- END: Body-->

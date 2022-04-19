@@ -132,10 +132,10 @@ class DatatransServiceController extends Controller
         }
     }
 
-    public function update($id){
+    public function update(){
         
         try{
-            DB::table('datatrans_services')->where('id', $id)->update([
+            DB::table('datatrans_services')->where('id', request('id'))->update([
                 'title' => request('title'),
 				'category' => request('category'),
                 'employee' => request('employee'),

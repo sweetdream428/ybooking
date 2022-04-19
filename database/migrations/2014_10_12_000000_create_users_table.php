@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('confirmsetcontent')->nullable();
             $table->string('declinedsetfrom')->nullable();
             $table->string('declinedsetsubject')->nullable();
+            $table->string('declinedsetcontent')->nullable();
             $table->string('setcolor')->nullable();
             $table->string('setcalendar')->nullable();
             $table->string('own_id')->nullable();
