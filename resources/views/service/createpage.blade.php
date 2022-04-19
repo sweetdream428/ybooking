@@ -428,24 +428,26 @@
 
         $(document).on('click', '.save-monday', function(){
             var id = $(this).data('id');
-            console.log('id------------------>', id);
+            
             var start_time = $('.mon-start-time[data-id=' + id + ']').text();
             var end_time = $('.mon-end-time[data-id=' + id + ']').text();
-            var data_check = $('.mon_check[data-id=' + id + ']').is(':checked') ? 1 : 0;
-            var selectdata = $('.flatpickr-monday[data-id=' + id + ']').val();
+            var date_check = $('.mon_check[data-id=' + id + ']').is(':checked') ? 1 : 0;
+            var selectdata = $('.flatpickr-monday[data-id=' + id + ']').val() ? $('.flatpickr-monday[data-id=' + id + ']').val() : '0';
+            var service_id = '{{$createId}}'
             console.log('start_time', start_time);
             console.log('end_time', end_time);
-            console.log('data_check', data_check);
+            console.log('date_check', date_check);
             console.log('selectdata', selectdata);
+            console.log('service_id', service_id);
             // createId
-            var url = 'service'
+            var url = '/datatrans-week-create';
             $.ajax({
                 headers: {
-                    'X-CSRF-TOKEN': $('#csrf_token_hidden').val()
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: 'post',
-                url: transaction,
-                data: { submerchantid: submerchantid },
+                url: url,
+                data: { start_time: start_time, end_time : end_time, date_check : date_check, selectdata : selectdata, weekname : 'mondays', service_id : service_id },
                 success: function (data) {
                     if (data['success']) {
                        

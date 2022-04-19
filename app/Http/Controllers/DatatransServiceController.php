@@ -77,6 +77,21 @@ class DatatransServiceController extends Controller
     }
 
     public function weekcrate(Request $request){
+        
+        try{
+            DB::table($request->weekname)->insert([
+                'start_time' => $request->start_time,
+                'end_time' => $request->end_time,
+                'date_check' => $request->date_check,
+                'selectdata' => $request->selectdata,
+                'service_id' => $request->service_id
+            ]);
+            $id = DB::getPdo()->lastInsertId();
+            return response()->json(['success'=>$id]);
+        }catch (Exception $e) {
+            return response()->json(['success'=>$e]);
+        }
+        
 
     }
 

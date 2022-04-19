@@ -16,8 +16,8 @@ class CreateTuesdaysTable extends Migration
         Schema::create('tuesdays', function (Blueprint $table) {
             $table->id();
             $table->string('service_id');
-            $table->boolean('start_time')->nullable();
-            $table->boolean('end_time')->nullable();
+            $table->time('start_time')->nullable();
+            $table->time('end_time')->nullable();
             $table->string('date_check')->nullable();
             $table->date('selectdata');
             $table->timestamps();
