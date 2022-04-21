@@ -157,6 +157,9 @@ class GoogleCalendarController extends Controller
         DB::table('users')->where('id', Auth::user()->id)->update([
             'setcalendar' => request('setcalendar')
         ]);
+        if(request('setcalendar') == 0){
+            unlink('token'.Auth::user()->id.'.json');
+        }
         
         return response()->json(['success'=>true]);
         
