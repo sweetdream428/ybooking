@@ -17,6 +17,8 @@ class DatatransController extends Controller
     {
         $setcalendar = DB::table('users')->where('name', $name)->get('setcalendar')[0]->setcalendar;
 		$setpayment = DB::table('users')->where('name', $name)->get('setpayment')[0]->setpayment;
+        $setcolor = DB::table('users')->where('name', $name)->get('setcolor')[0]->setcolor;
+        
         if($setcalendar == 1){
             $id = DB::table('users')->where('name', $name)->get('id')[0]->id;
             function getClient($name)
@@ -108,10 +110,11 @@ class DatatransController extends Controller
             }
             $submerchantID = DB::table('datatrans_merchants')->where('own_id', $id)->get('merchant_id')[0]->merchant_id;
 
-            return view('service')->with('categories', $categories)->with('services', $services)->with('orders', $orders)->with('id', $id)->with('submerchantID', $submerchantID)->with('events', $events)->with('locations', $locations)->with('employees', $employees)->with('emorders', $emorders)->with('setpayment', $setpayment);
+            return view('service')->with('categories', $categories)->with('services', $services)->with('orders', $orders)->with('id', $id)->with('submerchantID', $submerchantID)->with('events', $events)->with('locations', $locations)->with('employees', $employees)->with('emorders', $emorders)->with('setpayment', $setpayment)->with('setcolor', $setcolor);
         }
         else{
             $id = DB::table('users')->where('name', $name)->get('id')[0]->id;
+            
             $events = [];
             
             $categories = DB::table('datatrans_services')->where('own_id', $id)->whereNotNull('location')->whereNotNull('employee')->whereNotNull('title')->where('title','!=','')->get();
@@ -136,8 +139,8 @@ class DatatransController extends Controller
                 }
             }
             $submerchantID = DB::table('datatrans_merchants')->where('own_id', $id)->get('merchant_id')[0]->merchant_id;
-
-            return view('service')->with('categories', $categories)->with('services', $services)->with('orders', $orders)->with('id', $id)->with('submerchantID', $submerchantID)->with('events', $events)->with('locations', $locations)->with('employees', $employees)->with('emorders', $emorders)->with('setpayment', $setpayment);
+            
+            return view('service')->with('categories', $categories)->with('services', $services)->with('orders', $orders)->with('id', $id)->with('submerchantID', $submerchantID)->with('events', $events)->with('locations', $locations)->with('employees', $employees)->with('emorders', $emorders)->with('setpayment', $setpayment)->with('setcolor', $setcolor);
         }
     }
 	

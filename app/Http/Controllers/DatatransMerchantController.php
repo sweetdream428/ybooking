@@ -44,7 +44,8 @@ class DatatransMerchantController extends Controller
         
             DB::table('datatrans_merchants')->where('id', $id)->update([
                 'merchant_name' => request('umerchant_name'),
-                'merchant_id' => request('umerchant_id'),            
+                'merchant_id' => request('umerchant_id'),
+                'own_id' => Auth::user()->id          
             ]);
             return response()->json(['success'=>true]);
         

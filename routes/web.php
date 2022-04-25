@@ -33,7 +33,7 @@ use Illuminate\Support\Facades\Artisan;
 Route::get('/', function () {
     return view('welcome');
 });
-// Route::middleware('web')->group(function () {
+Route::middleware('web')->group(function () {
 
     Route::get('datatrans-service/{id}', [DatatransController::class, 'index'])->name('datatrans.index');
     Route::post('datatrans-service-create', [DatatransController::class, 'create'])->name('datatrans.create');
@@ -42,6 +42,8 @@ Route::get('/', function () {
 	Route::get('datatrans-service-error', [DatatransController::class, 'error'])->name('datatrans.error');
 	Route::get('datatrans-service-cancel', [DatatransController::class, 'cancel'])->name('datatrans.cancel');
 	Route::post('getservice', [DatatransController::class, 'getservice'])->name('datatrans.getservice');
+
+    Route::post('datatrans-service-select-get/{id}', [DatatransServiceController::class, 'selectget'])->name('datatrans.service.selectget');
     
     Route::get('lang/{locale}', [DatatransLanguageController::class, 'swap']);
 
@@ -65,7 +67,7 @@ Route::get('/', function () {
 
         Route::post('datatrans-week-status', [DatatransServiceController::class, 'weekstatus'])->name('datatrans.service.weekstatus');
 
-        Route::post('datatrans-service-select-get/{id}', [DatatransServiceController::class, 'selectget'])->name('datatrans.service.selectget');
+        
         
         
 
@@ -160,4 +162,4 @@ Route::get('/', function () {
         $exitCode = Artisan::call('view:clear');
         return 'View cache cleared';
     });
-// });
+});

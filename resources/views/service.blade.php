@@ -1,6 +1,6 @@
 
 <!-- BEGIN: Head-->
-@include('layouts.header')
+@include('layouts.serviceheader')
 <!-- END: Head-->
 
 <!-- BEGIN: Body-->
